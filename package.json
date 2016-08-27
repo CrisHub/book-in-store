@@ -1,0 +1,21 @@
+{
+  "name": "book-in-store",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.14.0",
+    "cookie-parser": "~1.4.0",
+    "cookie-session": "~1.2.0",
+    "ejs": "*",
+    "express": "~4.13.3",
+    "jade": "*",
+    "morgan": "~1.6.1",
+    "nconf": "~0.8.0",
+    "oauth": "~0.9.14",
+    "request": "^2.74.0",
+    "shopify-node-api": "^1.7.2"
+  }
+}

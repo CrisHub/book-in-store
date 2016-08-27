@@ -1,0 +1,8 @@
+{
+    "oauth": {
+        "api_key": "471dce81015f832994d3b772a7d7db62",
+        "client_secret": "4720fa97c75c2832be9eb2acbf1c06ee",
+        "redirect_url": "http://localhost:3000/auth_token",
+        "scope": "read_products, write_products"
+    }
+}
