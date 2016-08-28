@@ -18,6 +18,7 @@ var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
     
     //In case server stops and starts again, check if we need the auth token again
+    console.log(' Session token fucking shit:'+req.session.oauth_access_token);
     if (!req.session.oauth_access_token) {
         if (parsedUrl.query && parsedUrl.query.shop) {
         req.session.shopUrl = 'https://' + parsedUrl.query.shop;
@@ -31,7 +32,7 @@ var setShopify = function(req, res) {
             shop: req.session.shopUrl.split('//')[1],
             shopify_api_key: app.nconf.get('oauth:api_key'),
             shopify_shared_secret: app.nconf.get('oauth:client_secret'),
-            access_token: 'd07be56cd0554d9748a6566f426b835d',
+            access_token: req.session.oauth_access_token,
             verbose: false
         });
     }
@@ -70,7 +71,7 @@ exports.renderApp = function(req, res){
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log(' Session token fucking shit:'+req.session.oauth_access_token);
+
     //274091393 is hardcoded
     Shopify.get('/admin/collects.json?collection_id=274091393&limit=10&page='+page, function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
