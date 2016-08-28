@@ -16,7 +16,6 @@ var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
-    console.log(req.session.oauth_access_token);
     //In case server stops and starts again, check if we need the auth token again
     if (!req.session.oauth_access_token) {
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -70,7 +69,7 @@ exports.renderApp = function(req, res){
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-
+    console.log(req.session.oauth_access_token);
     //274091393 is hardcoded
     Shopify.get('/admin/collects.json?collection_id=274091393&limit=10&page='+page, function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
