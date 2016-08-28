@@ -85,7 +85,7 @@ exports.renderApp = function(req, res){
 
 exports.bookProduct = function(req, res) {
     Shopify = new shopifyAPI({
-        shop: req.session.shopUrl.split('//')[1],
+        shop: 'http://caramel-dev.myshopify.com'.split('//')[1],
         shopify_api_key: app.nconf.get('oauth:api_key'),
         shopify_shared_secret: app.nconf.get('oauth:client_secret'),
         access_token: req.session.oauth_access_token,
