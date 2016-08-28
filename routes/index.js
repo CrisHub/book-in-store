@@ -16,6 +16,7 @@ var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
+    console.log(req.session.oauth_access_token);
     //In case server stops and starts again, check if we need the auth token again
     if (!req.session.oauth_access_token) {
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -45,7 +46,6 @@ var setShopify = function(req, res) {
  */
 exports.index = function(req, res){
     // req.session = {};
-    console.log(req.session.oauth_access_token);
     if (!req.session.oauth_access_token) {
         var parsedUrl = url.parse(req.originalUrl, true);
         if (parsedUrl.query && parsedUrl.query.shop) {
