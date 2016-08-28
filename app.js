@@ -56,6 +56,7 @@ app.get('/auth_code', appAuth.getCode);
 app.get('/auth_token', appAuth.getAccessToken);
 app.get('/render_app', routes.renderApp);
 app.get('/view-product/:productId', routes.viewProduct);
+app.post('/book-product', routes.bookProduct);
 app.listen(app.get('port'), function() {
     console.log('Listening on port ' + app.get('port'));
 });
