@@ -72,7 +72,7 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    Shopify.get('/admin/metafields/7530600065.json', function(err, data, headers) {
+    Shopify.post('/admin/products/7530600065/metafields.json',{"metafield": {"namespace": "testMeta","key": "testMeta","value": 25,"value_type": "integer"}}, function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
         res.render('app_view', {
             title: 'Configuration',
