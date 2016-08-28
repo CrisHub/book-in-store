@@ -90,7 +90,7 @@ exports.bookProduct = function(req, res) {
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log(Shopify);
+    console.log(app.nconf.get('oauth:api_key'));
     Shopify.get('/admin/collects.json?collection_id=274091393', function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
