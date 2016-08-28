@@ -22,10 +22,10 @@ var setShopify = function(req, res) {
         if (parsedUrl.query && parsedUrl.query.shop) {
         req.session.shopUrl = 'https://' + parsedUrl.query.shop;
         }
+
         res.redirect('/auth_app');
     }
     else {
-
         //Using the shopify node.js library to make the calls to Shopify. This var is the configuration object.
         Shopify = new shopifyAPI({
             shop: req.session.shopUrl.split('//')[1],
@@ -84,19 +84,14 @@ exports.renderApp = function(req, res){
 };
 
 exports.bookProduct = function(req, res) {
-    Shopify = new shopifyAPI({
-        shop: 'http://caramel-dev.myshopify.com'.split('//')[1],
-        shopify_api_key: app.nconf.get('oauth:api_key'),
-        shopify_shared_secret: app.nconf.get('oauth:client_secret'),
-        access_token: req.session.oauth_access_token,
-        verbose: false
-    });
+    setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
     var page = 1;
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield":req.body},function(err, data, headers) {
+    // console.log(app.nconf.get('oauth:api_key'));
+    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
     });
