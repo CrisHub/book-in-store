@@ -72,7 +72,7 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    Shopify.get('/admin/metafields.json?namespace=book-in-store', function(err, data, headers) {
+    Shopify.get('/admin/metafields/count.json', function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
         res.render('app_view', {
             title: 'Configuration',
