@@ -91,7 +91,7 @@ exports.bookProduct = function(req, res) {
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    // console.log(app.nconf.get('oauth:api_key'));
+    
     Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield":req.body} ,function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
@@ -101,7 +101,7 @@ exports.bookProduct = function(req, res) {
 exports.viewProduct = function(req, res) {
     setShopify(req, res);
     console.log('GET: ',req.params);
-    Shopify.get('/admin/products/'+req.params.productId+'.json', function(err, data, headers) {
+    Shopify.get('/admin/metafields.json?namespace=book-in-store', function(err, data, headers) {
         console.log("GET: ", data);
         res.render('view-product', {
             title: 'Configuration',
