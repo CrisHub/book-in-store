@@ -16,7 +16,6 @@ var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
-    console.log("REQ PARAMS: ", parsedUrl.query);
     
     //In case server stops and starts again, check if we need the auth token again
     if (!req.session.oauth_access_token) {
@@ -92,7 +91,7 @@ exports.bookProduct = function(req, res) {
         page = parsedUrl.query.page;
     }
     console.log(' metafield: { ' + req.body.namespace + ' }');
-    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json?limit=10&page='+page, function(err, data, headers) {
+    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
     });
