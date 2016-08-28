@@ -85,7 +85,7 @@ exports.renderApp = function(req, res){
 };
 
 exports.bookProduct = function(req, res) {
-    // setShopify(req, res); 
+    setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     var page = 1;
     if(parsedUrl.query.page){
