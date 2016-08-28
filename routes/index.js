@@ -44,7 +44,7 @@ var setShopify = function(req, res) {
  * redirect to app authorisation.
  */
 exports.index = function(req, res){
-    req.session = {};
+    req.session.oauth_access_token = '997beac785c428cf78b878961f1ec62a';
     if (!req.session.oauth_access_token) {
         var parsedUrl = url.parse(req.originalUrl, true);
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -69,7 +69,6 @@ exports.renderApp = function(req, res){
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log(req.session.oauth_access_token);
     //274091393 is hardcoded
     Shopify.get('/admin/collects.json?collection_id=274091393&limit=10&page='+page, function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
@@ -91,7 +90,7 @@ exports.bookProduct = function(req, res) {
         page = parsedUrl.query.page;
     }
     // console.log(app.nconf.get('oauth:api_key'));
-    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', function(err, data, headers) {
+    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield":req.body} ,function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
     });
