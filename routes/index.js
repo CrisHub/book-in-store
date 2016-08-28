@@ -72,7 +72,17 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    Shopify.post('/admin/products/7530600065/metafields.json',{"metafield": {"namespace": "testMeta","key": "testMeta","value": 25,"value_type": "integer"}}, function(err, data, headers) {
+    Shopify.post('/admin/products/7530600065/metafields.json',
+        {
+            "metafield": {
+                "namespace": "testMeta",
+                "key": "testMeta",
+                "value": 25,
+                "value_type": "integer", 
+                'owner_resource': 'product',
+                'owner_id': '7530600065',
+             }
+        }, function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         Shopify.get('/admin/metafields/'+data.metafield.id+'.json', function(data){
             console.log("GET: ", JSON.stringify(data));
