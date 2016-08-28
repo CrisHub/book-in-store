@@ -84,7 +84,7 @@ exports.renderApp = function(req, res){
                 'description':'crap'
              }
         }, function(err, data, headers) {
-            console.log('ERR:' err);
+            console.log('ERR: '+ err);
         console.log("POST: ", JSON.stringify(data));
         Shopify.get('/admin/metafields.json', function(err, data, headers){
             console.log("GET: ", JSON.stringify(data));
