@@ -72,21 +72,23 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    Shopify.post('/admin/collects.json',
+    Shopify.post('/admin/products/7530600065/metafields.json',
         {
-            "collect": {
-                "product_id": 7530600065,
-                "collection_id": 274091393
-            }
+            "metafield": {
+                "namespace": "testMeta",
+                "key": "testMeta",
+                "value": "testVAl",
+                "value_type": "string", 
+             }
         }, function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
-        Shopify.get('/admin/collects.json?collection_id=274091393', function(err, data, headers){
+        Shopify.get('/admin/metafields.json', function(err, data, headers){
             console.log("GET: ", JSON.stringify(data));
             res.render('app_view', {
                 title: 'Configuration',
                 apiKey: app.nconf.get('oauth:api_key'),
                 shopUrl: req.session.shopUrl,
-                collections: data.collects,
+                metafields: data,
                 page:parseInt(page)
             });
         });
