@@ -51,7 +51,7 @@ exports.index = function(req, res){
         if (parsedUrl.query && parsedUrl.query.shop) {
             req.session.shopUrl = 'https://' + parsedUrl.query.shop;
         }
-
+        console.log('asdasd');
         res.redirect("/auth_app");
     }
     else {
