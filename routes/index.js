@@ -22,7 +22,6 @@ var setShopify = function(req, res) {
         if (parsedUrl.query && parsedUrl.query.shop) {
         req.session.shopUrl = 'https://' + parsedUrl.query.shop;
         }
-        console.log('in the wrong place');
         res.redirect('/auth_app');
     }
     else {
@@ -85,14 +84,19 @@ exports.renderApp = function(req, res){
 };
 
 exports.bookProduct = function(req, res) {
-    setShopify(req, res);
+    Shopify = new shopifyAPI({
+        shop: req.session.shopUrl.split('//')[1],
+        shopify_api_key: app.nconf.get('oauth:api_key'),
+        shopify_shared_secret: app.nconf.get('oauth:client_secret'),
+        access_token: req.session.oauth_access_token,
+        verbose: false
+    });
     var parsedUrl = url.parse(req.originalUrl, true);
     var page = 1;
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    // console.log(app.nconf.get('oauth:api_key'));
-    Shopify.get('/admin/collects.json?collection_id=274091393', function(err, data, headers) {
+    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield":req.body},function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
     });
