@@ -67,11 +67,11 @@ exports.index = function(req, res){
 exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
-    //274091393 is hardcoded
     var page = 1;
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
+    //274091393 is hardcoded
     Shopify.get('/admin/collects.json?collection_id=274091393&limit=10&page='+page, function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
         res.render('app_view', {
@@ -82,6 +82,26 @@ exports.renderApp = function(req, res){
             page:parseInt(page)
         });
     });
+};
+
+exports.bookProduct = function(req, res) {
+    // setShopify(req, res); 
+    var parsedUrl = url.parse(req.originalUrl, true);
+    var page = 1;
+    if(parsedUrl.query.page){
+        page = parsedUrl.query.page;
+    }
+    console.log(req.body.var1);
+    // Shopify.post('/admin/products/{{product.id}}/metafields.json?limit=10&page='+page, function(err, data, headers) {
+    //     console.log("POST: ", JSON.stringify(data));
+    //     res.render('app_view', {
+    //         title: 'Configuration',
+    //         apiKey: app.nconf.get('oauth:api_key'),
+    //         shopUrl: req.session.shopUrl,
+    //         collections: data.collects,
+    //         page:parseInt(page)
+    //     });
+    // });
 };
 
 exports.viewProduct = function(req, res) {
