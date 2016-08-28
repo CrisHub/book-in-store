@@ -91,7 +91,7 @@ exports.bookProduct = function(req, res) {
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log(req.body);
+    console.log(' metafield: { ' + req.body + ' }');
     // Shopify.post('/admin/products/{{product.id}}/metafields.json?limit=10&page='+page, function(err, data, headers) {
     //     console.log("POST: ", JSON.stringify(data));
     //     res.render('app_view', {
