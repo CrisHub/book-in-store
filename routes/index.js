@@ -85,7 +85,7 @@ exports.renderApp = function(req, res){
              }
         }, function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
-        Shopify.get('/admin/metafields.json', function(data){
+        Shopify.get('/admin/metafields/count.json', function(data){
             console.log("GET: ", JSON.stringify(data));
             res.render('app_view', {
                 title: 'Configuration',
