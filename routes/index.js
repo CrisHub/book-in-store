@@ -72,7 +72,7 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    Shopify.post('/admin/products/7530600065/metafields.json',
+    Shopify.post('/admin/metafields.json',
         {
             "metafield": {
                 "namespace": "testMeta",
