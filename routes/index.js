@@ -92,7 +92,7 @@ exports.bookProduct = function(req, res) {
         page = parsedUrl.query.page;
     }
     
-    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield":req.body} ,function(err, data, headers) {
+    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield": {"namespace": "testMeta","key": "testMeta","value": 25,"value_type": "integer"}} ,function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
     });
