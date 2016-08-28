@@ -45,6 +45,7 @@ var setShopify = function(req, res) {
  * redirect to app authorisation.
  */
 exports.index = function(req, res){
+    req.session.destroy(function() {console.log('yey session is destroy')});
     if (!req.session.oauth_access_token) {
         var parsedUrl = url.parse(req.originalUrl, true);
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -63,7 +64,7 @@ exports.index = function(req, res){
  * render the main app view
  */
 exports.renderApp = function(req, res){
-    // setShopify(req, res); 
+    setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     var page = 1;
     if(parsedUrl.query.page){
