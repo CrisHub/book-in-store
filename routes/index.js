@@ -16,7 +16,7 @@ var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
-    console.log('innnnnn');
+    
     //In case server stops and starts again, check if we need the auth token again
     if (!req.session.oauth_access_token) {
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -26,6 +26,7 @@ var setShopify = function(req, res) {
         res.redirect('/auth_app');
     }
     else {
+        console.log('in the right place');
         //Using the shopify node.js library to make the calls to Shopify. This var is the configuration object.
         Shopify = new shopifyAPI({
             shop: req.session.shopUrl.split('//')[1],
