@@ -70,7 +70,7 @@ exports.renderApp = function(req, res){
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log('here it breaks');
+    console.log(' Session token fucking shit:'+req.session.oauth_access_token);
     //274091393 is hardcoded
     Shopify.get('/admin/collects.json?collection_id=274091393&limit=10&page='+page, function(err, data, headers) {
         console.log("GET: ", JSON.stringify(data));
