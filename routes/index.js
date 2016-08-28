@@ -84,13 +84,13 @@ exports.renderApp = function(req, res){
 };
 
 exports.bookProduct = function(req, res) {
-    setShopify(req, res); 
+    setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
     var page = 1;
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log(' metafield: { ' + req.body.namespace + ' }');
+    console.log(Shopify);
     Shopify.get('/admin/collects.json?collection_id=274091393', function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
