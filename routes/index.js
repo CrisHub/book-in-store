@@ -31,7 +31,7 @@ var setShopify = function(req, res) {
             shop: req.session.shopUrl.split('//')[1],
             shopify_api_key: app.nconf.get('oauth:api_key'),
             shopify_shared_secret: app.nconf.get('oauth:client_secret'),
-            access_token: req.session.oauth_access_token,
+            access_token: 'd07be56cd0554d9748a6566f426b835d',
             verbose: false
         });
     }
