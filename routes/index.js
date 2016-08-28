@@ -74,7 +74,7 @@ exports.renderApp = function(req, res){
     //274091393 is hardcoded
     Shopify.post('/admin/products/7530600065/metafields.json',
         {
-            "metafield": {
+            {"metafield": {
                 "namespace": "testMeta",
                 "key": "testMeta",
                 "value": 25,
@@ -82,9 +82,8 @@ exports.renderApp = function(req, res){
                 'owner_resource': 'product',
                 'owner_id': '7530600065',
                 'description':'crap'
-             }
+             }}
         }, function(err, data, headers) {
-            console.log('ERR: '+ err);
         console.log("POST: ", JSON.stringify(data));
         Shopify.get('/admin/metafields.json', function(err, data, headers){
             console.log("GET: ", JSON.stringify(data));
