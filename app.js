@@ -17,7 +17,7 @@ var bodyParser = require('body-parser'),
 
 //load settings from environment config
 nconf.argv().env().file({
-    file: (process.env.NODE_ENV || 'dev') + '-settings.json'
+    file: 'dev-settings.json'
 });
 exports.nconf = nconf;
 
