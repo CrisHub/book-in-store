@@ -22,11 +22,11 @@ var setShopify = function(req, res) {
         if (parsedUrl.query && parsedUrl.query.shop) {
         req.session.shopUrl = 'https://' + parsedUrl.query.shop;
         }
-
+        console.log('in the wrong place');
         res.redirect('/auth_app');
     }
     else {
-        console.log('in the right place');
+
         //Using the shopify node.js library to make the calls to Shopify. This var is the configuration object.
         Shopify = new shopifyAPI({
             shop: req.session.shopUrl.split('//')[1],
