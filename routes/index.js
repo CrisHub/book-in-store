@@ -94,13 +94,7 @@ exports.bookProduct = function(req, res) {
     console.log(' metafield: { ' + req.body.namespace + ' }');
     Shopify.post('/admin/products/'+req.body.productId+'/metafields.json?limit=10&page='+page, function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
-        res.render('app_view', {
-            title: 'Configuration',
-            apiKey: app.nconf.get('oauth:api_key'),
-            shopUrl: req.session.shopUrl,
-            collections: data.collects,
-            page:parseInt(page)
-        });
+        res.json(data);
     });
 };
 
