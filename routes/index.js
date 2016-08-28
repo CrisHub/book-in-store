@@ -16,7 +16,7 @@ var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
-    
+    console.log('innnnnn');
     //In case server stops and starts again, check if we need the auth token again
     if (!req.session.oauth_access_token) {
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -90,7 +90,7 @@ exports.bookProduct = function(req, res) {
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
-    console.log(app.nconf.get('oauth:api_key'));
+    // console.log(app.nconf.get('oauth:api_key'));
     Shopify.get('/admin/collects.json?collection_id=274091393', function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
         res.json(data);
