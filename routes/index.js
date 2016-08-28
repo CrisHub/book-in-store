@@ -72,25 +72,14 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    Shopify.post('/admin/products/7530600065/metafields.json',
-        {
-            "metafield": {
-                "namespace": "testMeta",
-                "key": "testMeta",
-                "value": "testVAl",
-                "value_type": "string", 
-             }
-        }, function(err, data, headers) {
-        console.log("POST: ", JSON.stringify(data));
-        Shopify.get('/admin/products/7530600065/metafields.json', function(err, data, headers){
-            console.log("GET: ", JSON.stringify(data));
-            res.render('app_view', {
-                title: 'Configuration',
-                apiKey: app.nconf.get('oauth:api_key'),
-                shopUrl: req.session.shopUrl,
-                metafields: data,
-                page:parseInt(page)
-            });
+    Shopify.get('/admin/products/count.json', function(err, data, headers){
+        console.log("GET: ", JSON.stringify(data));
+        res.render('app_view', {
+            title: 'Configuration',
+            apiKey: app.nconf.get('oauth:api_key'),
+            shopUrl: req.session.shopUrl,
+            metafields: data,
+            page:parseInt(page)
         });
     });
 };
@@ -103,9 +92,12 @@ exports.bookProduct = function(req, res) {
         page = parsedUrl.query.page;
     }
     
-    Shopify.post('/admin/products/'+req.body.productId+'/metafields.json', {"metafield": {"namespace": "testMeta","key": "testMeta","value": 25,"value_type": "integer"}} ,function(err, data, headers) {
+    Shopify.post('/admin/products/7530600065/metafields.json',
+        {
+            "metafield": req.body
+        }, function(err, data, headers) {
         console.log("POST: ", JSON.stringify(data));
-        res.json(data);
+        
     });
 };
 
