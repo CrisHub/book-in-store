@@ -72,20 +72,20 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     //274091393 is hardcoded
-    // Shopify.post('/admin/metafields.json',
-    //     {
-    //         "metafield": {
-    //             "namespace": "testMeta",
-    //             "key": "testMeta",
-    //             "value": 25,
-    //             "value_type": "integer", 
-    //             'owner_resource': 'product',
-    //             'owner_id': '7530600065',
-    //             'description':'crap'
-    //          }
-    //     }, function(err, data, headers) {
-    //     console.log("POST: ", JSON.stringify(data));
-        Shopify.get('/admin/metafields/count.json', function(data){
+    Shopify.post('/admin/metafields.json',
+        {
+            "metafield": {
+                "namespace": "testMeta",
+                "key": "testMeta",
+                "value": 25,
+                "value_type": "integer", 
+                'owner_resource': 'product',
+                'owner_id': '7530600065',
+                'description':'crap'
+             }
+        }, function(err, data, headers) {
+        console.log("POST: ", JSON.stringify(data));
+        Shopify.get('/admin/metafields/count.json', function(err, data, headers){
             console.log("GET: ", JSON.stringify(data));
             res.render('app_view', {
                 title: 'Configuration',
@@ -95,7 +95,7 @@ exports.renderApp = function(req, res){
                 page:parseInt(page)
             });
         });
-    // });
+    });
 };
 
 exports.bookProduct = function(req, res) {
