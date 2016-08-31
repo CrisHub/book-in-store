@@ -76,8 +76,9 @@ exports.renderApp = function(req, res){
     var setTags = function(data){
       var p = data.products[0],
           pVariants = p.variants,
-          tagsArray = p.tags.trim(),
-          tagsArray = tagsArray.split(',');
+          tagsArrayTrimed = p.tags.replace(/\s+/g, ''),
+          tagsArray = tagsArrayTrimed.split(',');
+          console.log(tagsArrayTrimed);
       _.forEach(pVariants, function(value, key) {
           _.each(tagsArray, function(val, idx) {
             if (val == value.option1){
