@@ -76,23 +76,24 @@ exports.renderApp = function(req, res){
     var setTags = function(data){
       var p = data.products[0],
           pVariants = p.variants,
-          vColor = [],
-          vSize = [],
           tagsArray = p.tags.split(',');
       _.forEach(pVariants, function(value, key) {
-        console.log(value.option1);
-        vColor.push(value.option1);
-        vSize.push(value.option2);
+        if (tagsArray.indexOf(value.option1) < 0) {
+          tagsArray.push(value.option1)
+        }
+        if (tagsArray.indexOf(value.option2) < 0) {
+          tagsArray.push(value.option2);
+        }
       });
-      console.log(vColor);
+
+      tagsArray = tagsArray.join(',');
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
             apiKey: app.nconf.get('oauth:api_key'),
             shopUrl: req.session.shopUrl,
             products: data.products,
-            vColor: vColor,
-            vSize: vSize,
+            tagsArray: tagsArray,
             page:parseInt(page)
         });
     };
