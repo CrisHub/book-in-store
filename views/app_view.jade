@@ -18,7 +18,7 @@ block content
     });
     
   each meta in metafields
-    div=!{JSON.stringify(item)}
+    div=meta.products[0].tags
   //- h3 Reserved products list
   //- table(class="table table-bordered table-condensed")
   //-   tr
