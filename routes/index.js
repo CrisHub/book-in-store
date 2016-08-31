@@ -82,7 +82,7 @@ exports.renderApp = function(req, res){
       _.forEach(pVariants, function(value, key) {
         console.log(value.option1);
         vColor.push(value.option1);
-        vSize.push(variants.option2);
+        vSize.push(value.option2);
       });
       console.log(vColor);
           // console.log(p.variants);
