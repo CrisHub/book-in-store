@@ -76,7 +76,8 @@ exports.renderApp = function(req, res){
     var setTags = function(data){
       var p = data.products[0],
           pVariants = p.variants,
-          tagsArray = p.tags.split(',');
+          tagsArray = p.tags.trim(),
+          tagsArray = tagsArray.split(',');
       _.forEach(pVariants, function(value, key) {
           _.each(tagsArray, function(val, idx) {
             if (val == value.option1){
@@ -86,7 +87,7 @@ exports.renderApp = function(req, res){
           tagsArray.push(value.option1)
           tagsArray.push(value.option2);
       });
-      // tagsArray = _.uniq(tagsArray);
+      tagsArray = _.uniq(tagsArray);
       // _.each(tagsArray, function(value, idx) {
 
       // }); 
