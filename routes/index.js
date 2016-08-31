@@ -79,7 +79,6 @@ exports.renderApp = function(req, res){
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
           tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
           tagsArray = tagsArrayTrimed.split(',');
-          console.log(tagsArrayTrimed);
       _.forEach(pVariants, function(value, key) {
           _.each(tagsArray, function(val, idx) {
             if (val == value.option1){
@@ -93,7 +92,7 @@ exports.renderApp = function(req, res){
       // _.each(tagsArray, function(value, idx) {
 
       // }); 
-      tagsArray = tagsArray.join(',');
+      tagsArray = tagsArray.join(' ,');
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
