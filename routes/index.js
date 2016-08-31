@@ -75,7 +75,7 @@ exports.renderApp = function(req, res){
     var getCount = 0;
     var setTags = function(data){
       var p = data.products[0],
-          pVariants = data.products.variants,
+          pVariants = p.variants,
           vColor = [],
           vSize = [],
           tagsArray = p.tags.split(',');
@@ -87,6 +87,7 @@ exports.renderApp = function(req, res){
           vSize.push(value);
         }
       });
+      console.log(vColor);
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
