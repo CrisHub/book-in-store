@@ -19,7 +19,9 @@ block content
     
   each p in products
     div=p.tags
-    div=p.variants.color
+    each v in p.variants
+      div=v.option1
+      div=v.option2
   //- h3 Reserved products list
   //- table(class="table table-bordered table-condensed")
   //-   tr
