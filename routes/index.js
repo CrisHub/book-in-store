@@ -81,9 +81,8 @@ exports.renderApp = function(req, res){
           tagsArray.push(value.option1)
           tagsArray.push(value.option2);
       });
-
-      tagsArray = tagsArray.join(',');
       tagsArray = _.uniq(tagsArray);
+      tagsArray = tagsArray.join(',');
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
