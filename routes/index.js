@@ -71,16 +71,21 @@ exports.renderApp = function(req, res){
     if(parsedUrl.query.page){
         page = parsedUrl.query.page;
     }
+    var getCount = 0;
+    var setTags = function(data){
+      console.log(data);
+    };
     //274091393 is hardcoded
-    Shopify.get('/admin/products/count.json', function(err, data, headers){
-        console.log("GET: ", JSON.stringify(data));
-        res.render('app_view', {
-            title: 'Configuration',
-            apiKey: app.nconf.get('oauth:api_key'),
-            shopUrl: req.session.shopUrl,
-            metafields: data,
-            page:parseInt(page)
-        });
+    Shopify.get('/admin/products.json?limit=1', function(err, data, headers){
+        setTags(data);
+        // console.log("GET: ", JSON.stringify(data));
+        // res.render('app_view', {
+        //     title: 'Configuration',
+        //     apiKey: app.nconf.get('oauth:api_key'),
+        //     shopUrl: req.session.shopUrl,
+        //     metafields: data,
+        //     page:parseInt(page)
+        // });
     });
 };
 
