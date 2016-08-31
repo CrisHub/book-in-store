@@ -78,15 +78,12 @@ exports.renderApp = function(req, res){
           pVariants = p.variants,
           tagsArray = p.tags.split(',');
       _.forEach(pVariants, function(value, key) {
-        if (tagsArray.indexOf(value.option1) < 0) {
           tagsArray.push(value.option1)
-        }
-        if (tagsArray.indexOf(value.option2) < 0) {
           tagsArray.push(value.option2);
-        }
       });
 
       tagsArray = tagsArray.join(',');
+      tagsArray = _.uniq(tagsArray);
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
