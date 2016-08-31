@@ -73,7 +73,7 @@ exports.renderApp = function(req, res){
     }
     var getCount = 0;
     var setTags = function(data){
-      
+      console.log(data);
       res.render('app_view', {
             title: 'Configuration',
             apiKey: app.nconf.get('oauth:api_key'),
