@@ -80,19 +80,16 @@ exports.renderApp = function(req, res){
           tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
           tagsArray = tagsArrayTrimed.split(',');
       _.forEach(pVariants, function(value, key) {
-          _.each(tagsArray, function(val, idx) {
-            if (val == value.option1){
-              console.log('abc');
-            }
-          });
+        if (value.inventory_quantity > 0) {
           tagsArray.push(value.option1)
           tagsArray.push(value.option2);
+        }
       });
       tagsArray = _.uniq(tagsArray);
       // _.each(tagsArray, function(value, idx) {
 
       // }); 
-      tagsArray = tagsArray.join(' ,');
+      tagsArray = tagsArray.join(', ');
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
