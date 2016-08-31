@@ -76,7 +76,8 @@ exports.renderApp = function(req, res){
     var setTags = function(data){
       var p = data.products[0],
           pVariants = p.variants,
-          tagsArrayTrimed = p.tags.replace(/[, ]+$/, ''),
+          tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
+          tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
           tagsArray = tagsArrayTrimed.split(',');
           console.log(tagsArrayTrimed);
       _.forEach(pVariants, function(value, key) {
