@@ -80,7 +80,8 @@ exports.renderApp = function(req, res){
           vSize = [],
           tagsArray = p.tags.split(',');
       _.forEach(pVariants, function(value, key) {
-        console.log(value, key);
+        console.log(value);
+        return;
         if (key == 'option1'){
           vColor.push(value);
         }
