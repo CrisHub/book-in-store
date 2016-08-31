@@ -10,7 +10,8 @@ var app = require('../app'),
     url = require("url"),
     querystring = require('querystring'),
     request     = require('request'),
-    shopifyAPI  = require('shopify-node-api');
+    shopifyAPI  = require('shopify-node-api'),
+    _ = require('lodash');
 
 var Shopify;
 
@@ -74,16 +75,26 @@ exports.renderApp = function(req, res){
     var getCount = 0;
     var setTags = function(data){
       var p = data.products[0],
-          vColors = p.variants['option1'],
+          pVariants = data.products.variants,
+          vColor = [],
+          vSize = [],
           tagsArray = p.tags.split(',');
-          console.log(tagsArray);
+      _.forEach(pVariants, function(value, key) {
+        if (key == 'option1'){
+          vColor.push(value);
+        }
+        if (key == 'option2'){
+          vSize.push(value);
+        }
+      });
           // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
             apiKey: app.nconf.get('oauth:api_key'),
             shopUrl: req.session.shopUrl,
             products: data.products,
-            tagsArray: tagsArrays,
+            vColor: vColor,
+            vSize: vSize,
             page:parseInt(page)
         });
     };

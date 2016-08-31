@@ -19,11 +19,10 @@ block content
     
   each p in products
     div=p.tags
-    each v in p.variants
-      div=v.option1
-      div=v.option2
-  each ta in tagsArray
-    div=ta
+  each vc in vColor 
+    div=vc
+  each vs in vSize
+    div=vs
   //- h3 Reserved products list
   //- table(class="table table-bordered table-condensed")
   //-   tr
