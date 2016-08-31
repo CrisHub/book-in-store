@@ -74,8 +74,10 @@ exports.renderApp = function(req, res){
     var getCount = 0;
     var setTags = function(data){
       var p = data.products[0],
-          vColors = p.variants['option1'];
-          console.log(p.variants);
+          vColors = p.variants['option1'],
+          tagsArray = p.tags.split(',');
+          console.log(tagsArray);
+          // console.log(p.variants);
       res.render('app_view', {
             title: 'Configuration',
             apiKey: app.nconf.get('oauth:api_key'),
