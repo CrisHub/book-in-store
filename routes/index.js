@@ -78,7 +78,7 @@ exports.renderApp = function(req, res){
             title: 'Configuration',
             apiKey: app.nconf.get('oauth:api_key'),
             shopUrl: req.session.shopUrl,
-            metafields: data,
+            products: data.products,
             page:parseInt(page)
         });
     };
