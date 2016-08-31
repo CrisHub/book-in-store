@@ -78,10 +78,18 @@ exports.renderApp = function(req, res){
           pVariants = p.variants,
           tagsArray = p.tags.split(',');
       _.forEach(pVariants, function(value, key) {
+          _.each(tagsArray, function(val, idx) {
+            if (val == value.option1){
+              console.log('abc');
+            }
+          });
           tagsArray.push(value.option1)
           tagsArray.push(value.option2);
       });
-      tagsArray = _.uniq(tagsArray);
+      // tagsArray = _.uniq(tagsArray);
+      // _.each(tagsArray, function(value, idx) {
+
+      // }); 
       tagsArray = tagsArray.join(',');
           // console.log(p.variants);
       res.render('app_view', {
