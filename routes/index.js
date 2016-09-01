@@ -94,6 +94,7 @@ exports.renderApp = function(req, res){
           }
         }, function(err, data, headers) {
           console.log(err);
+          console.log(data);
           res.render('app_view', {
               title: 'Configuration',
               apiKey: app.nconf.get('oauth:api_key'),
