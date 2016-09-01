@@ -11,7 +11,13 @@ var app = require('../app'),
     querystring = require('querystring'),
     request     = require('request'),
     shopifyAPI  = require('shopify-node-api'),
+    fs = require('fs'),
+    jsonfile = require('jsonfile'),
     _ = require('lodash');
+
+var filePath = '/tmp/data.json';
+var jsonObj = {tags: []};
+
 
 var Shopify;
 
@@ -83,30 +89,31 @@ exports.renderApp = function(req, res){
         if (value.inventory_quantity > 0) {
           tagsArray.push(value.option1)
           tagsArray.push(value.option2);
+          jsonObj.tags.push(value.option1);
         }
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      Shopify.put('/admin/products/7497850881.json', {
+      Shopify.put('/admin/products/7530600065.json', {
           "product": {
-            "id": 7497850881,
+            "id": 7530600065,
             "tags": tagsArray
           }
-        }, function(err, data, headers) {
-          console.log(err);
-          console.log(data);
-          res.render('app_view', {
-              title: 'Configuration',
-              apiKey: app.nconf.get('oauth:api_key'),
-              shopUrl: req.session.shopUrl,
-              products: data.products,
-              tagsArray: tagsArray,
-              page:parseInt(page)
-          });
+        }, function(err, data, headers) {          
+          jsonfile.writeFile(filePath, jsonObj, function (err) {
+            res.render('app_view', {
+                title: 'Configuration',
+                apiKey: app.nconf.get('oauth:api_key'),
+                shopUrl: req.session.shopUrl,
+                products: data.products,
+                tagsArray: tagsArray,
+                page:parseInt(page)
+            });
+          }); 
       });
     };
     //274091393 is hardcoded
-    Shopify.get('/admin/products.json?ids=7497850881', function(err, data, headers){
+    Shopify.get('/admin/products.json?ids=7530600065', function(err, data, headers){
         setTags(data);
     });
 };
