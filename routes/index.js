@@ -86,25 +86,27 @@ exports.renderApp = function(req, res){
         }
       });
       tagsArray = _.uniq(tagsArray);
-      // _.each(tagsArray, function(value, idx) {
-
-      // }); 
       tagsArray = tagsArray.join(', ');
-          // console.log(p.variants);
-      res.render('app_view', {
-            title: 'Configuration',
-            apiKey: app.nconf.get('oauth:api_key'),
-            shopUrl: req.session.shopUrl,
-            products: data.products,
-            tagsArray: tagsArray,
-            page:parseInt(page)
-        });
+      Shopify.post('/admin/products.json', {
+          "product": {
+            "id": 7497850881,
+            "tags": tagsArray
+          }
+        }, function(err, data, headers) {
+          console.log(err);
+          res.render('app_view', {
+              title: 'Configuration',
+              apiKey: app.nconf.get('oauth:api_key'),
+              shopUrl: req.session.shopUrl,
+              products: data.products,
+              tagsArray: tagsArray,
+              page:parseInt(page)
+          });
+      });
     };
     //274091393 is hardcoded
     Shopify.get('/admin/products.json?ids=7497850881', function(err, data, headers){
         setTags(data);
-        // console.log("GET: ", JSON.stringify(data));
-        
     });
 };
 
