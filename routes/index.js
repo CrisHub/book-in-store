@@ -101,6 +101,7 @@ exports.renderApp = function(req, res){
           }
         }, function(err, data, headers) {          
           jsonfile.writeFile(filePath, jsonObj, function (err) {
+            console.log(err);
             res.render('app_view', {
                 title: 'Configuration',
                 apiKey: app.nconf.get('oauth:api_key'),
