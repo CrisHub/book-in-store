@@ -87,7 +87,7 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      Shopify.post('/admin/products.json', {
+      Shopify.post('/admin/products/7497850881.json', {
           "product": {
             "id": 7497850881,
             "tags": tagsArray
