@@ -81,7 +81,7 @@ exports.renderApp = function(req, res){
       console.log(crtProd);
       var p = crtProducts.products[crtProd],
           pVariants = p.variants,
-          if (p.tags.length) {
+          if (p.tags) {
             tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
             tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
             tagsArray = tagsArrayTrimed.split(',');  
