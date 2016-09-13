@@ -100,7 +100,7 @@ exports.renderApp = function(req, res){
         }, function(err, data, headers) {
           // console.log(crtProd);
           crtProd = crtProd++;
-          console.log(p.tags);
+          console.log(p);
 
           // console.log(p.id);
           // setTags(crtProducts);
