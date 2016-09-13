@@ -95,7 +95,6 @@ exports.renderApp = function(req, res){
             "tags": tagsArray
           }
         }, function(err, data, headers) {
-          callback();          
           // res.render('app_view', {
           //     title: 'Configuration',
           //     apiKey: app.nconf.get('oauth:api_key'),
@@ -110,11 +109,10 @@ exports.renderApp = function(req, res){
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
       Shopify.get('/admin/products.json?ids=7780017025', function(err, data, headers){
-          setTags(data, function() {
-            
-          });
+          setTags(data);
       });
     }
+    getProducts();
 };
 
 exports.bookProduct = function(req, res) {
