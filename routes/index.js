@@ -78,12 +78,12 @@ exports.renderApp = function(req, res){
     var crtProd = 0;
     var crtProducts;
     var setTags = function(){
+      console.log(crtProd);
       var p = crtProducts.products[crtProd],
           pVariants = p.variants,
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
           tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
           tagsArray = tagsArrayTrimed.split(',');
-      crtProd = crtProd++;
       _.forEach(pVariants, function(value, key) {
         if (value.inventory_quantity > 0) {
           tagsArray.push(value.option1)
@@ -99,7 +99,9 @@ exports.renderApp = function(req, res){
           }
         }, function(err, data, headers) {
           // console.log(crtProd);
+          crtProd = crtProd++;
           console.log(tagsArray);
+
           // console.log(p.id);
           // setTags(crtProducts);
       });
