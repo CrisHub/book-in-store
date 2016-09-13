@@ -75,20 +75,12 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     var getCount = 0;
-    var crtProd = 0;
-    var crtProducts;
-    var setTags = function(){
-      console.log(crtProd);
-      var p = crtProducts.products[crtProd],
-          pVariants = p.variants;
-          if (p.tags.length) {
-            var tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
-              tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
-              tagsArray = tagsArrayTrimed.split(',');  
-          } else {
-              tagsArray = [];
-          }
-          
+    var setTags = function(data, callback){
+      var p = data.products[0],
+          pVariants = p.variants,
+          tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
+          tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
+          tagsArray = tagsArrayTrimed.split(',');
       _.forEach(pVariants, function(value, key) {
         if (value.inventory_quantity > 0) {
           tagsArray.push(value.option1)
@@ -97,42 +89,32 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      console.log(tagsArray);
-      if (tagsArray.length){
-          Shopify.put('/admin/products/'+p.id+'.json', {
-            "product": {
-              "id": p.id,
-              "tags": tagsArray
-            }
-          }, function(err, data, headers) {
-            // console.log(crtProd);
-            crtProd = crtProd+1;
-            console.log(p);
-            // console.log(p.id);
-            // setTags(crtProducts);
-        });
-      } else {
-        crtProd = crtProd+1;
-        setTags();
-      }
-      
-      // res.render('app_view', {
-      //     title: 'Configuration',
-      //     apiKey: app.nconf.get('oauth:api_key'),
-      //     shopUrl: req.session.shopUrl,
-      //     products: data.products,
-      //     tagsArray: tagsArray,
-      //     page:parseInt(page)
-      // });
+      Shopify.put('/admin/products/7780017025.json', {
+          "product": {
+            "id": p.id,
+            "tags": tagsArray
+          }
+        }, function(err, data, headers) {
+          callback();          
+          // res.render('app_view', {
+          //     title: 'Configuration',
+          //     apiKey: app.nconf.get('oauth:api_key'),
+          //     shopUrl: req.session.shopUrl,
+          //     products: data.products,
+          //     tagsArray: tagsArray,
+          //     page:parseInt(page)
+          // });
+      });
     };
 
     var getProducts = function(page, limit) {
-      Shopify.get('/admin/products.json?limit=250&page=1', function(err, data, headers){
-        crtProducts = data;
-          setTags();
+      //274091393 is hardcoded
+      Shopify.get('/admin/products.json?ids=7780017025', function(err, data, headers){
+          setTags(data, function() {
+            
+          });
       });
     }
-    getProducts();
 };
 
 exports.bookProduct = function(req, res) {
