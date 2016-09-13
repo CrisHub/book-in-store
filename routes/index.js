@@ -81,9 +81,14 @@ exports.renderApp = function(req, res){
       console.log(crtProd);
       var p = crtProducts.products[crtProd],
           pVariants = p.variants,
-          tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
-          tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
-          tagsArray = tagsArrayTrimed.split(',');
+          if (p.tags.length) {
+            tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
+            tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
+            tagsArray = tagsArrayTrimed.split(',');  
+          } else {
+            tagsArray = [];
+          }
+          
       _.forEach(pVariants, function(value, key) {
         if (value.inventory_quantity > 0) {
           tagsArray.push(value.option1)
@@ -92,19 +97,24 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      Shopify.put('/admin/products/'+p.id+'.json', {
-          "product": {
-            "id": p.id,
-            "tags": tagsArray
-          }
-        }, function(err, data, headers) {
-          // console.log(crtProd);
-          crtProd = crtProd++;
-          console.log(p);
-
-          // console.log(p.id);
-          // setTags(crtProducts);
-      });
+      if (tagsArray.length){
+          Shopify.put('/admin/products/'+p.id+'.json', {
+            "product": {
+              "id": p.id,
+              "tags": tagsArray
+            }
+          }, function(err, data, headers) {
+            // console.log(crtProd);
+            crtProd = crtProd+1;
+            console.log(p);
+            // console.log(p.id);
+            // setTags(crtProducts);
+        });
+      } else {
+        crtProd = crtProd+1;
+        setTags();
+      }
+      
       // res.render('app_view', {
       //     title: 'Configuration',
       //     apiKey: app.nconf.get('oauth:api_key'),
