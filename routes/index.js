@@ -12,11 +12,7 @@ var app = require('../app'),
     request     = require('request'),
     shopifyAPI  = require('shopify-node-api'),
     fs = require('fs'),
-    jsonfile = require('jsonfile'),
     _ = require('lodash');
-
-var filePath = '/tmp/data.json';
-var jsonObj = {tags: []};
 
 
 var Shopify;
@@ -79,44 +75,47 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     var getCount = 0;
+    var crtProd = 0;
     var setTags = function(data){
-      var p = data.products[0],
+      var p = data.products[crtProd],
           pVariants = p.variants,
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
           tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
           tagsArray = tagsArrayTrimed.split(',');
+      crtProd = crtProd++;
       _.forEach(pVariants, function(value, key) {
         if (value.inventory_quantity > 0) {
           tagsArray.push(value.option1)
           tagsArray.push(value.option2);
-          jsonObj.tags.push(value.option1);
         }
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      Shopify.put('/admin/products/7530600065.json', {
-          "product": {
-            "id": 7530600065,
-            "tags": tagsArray
-          }
-        }, function(err, data, headers) {          
-          jsonfile.writeFile(filePath, jsonObj, function (err) {
-            console.log(err);
-            res.render('app_view', {
-                title: 'Configuration',
-                apiKey: app.nconf.get('oauth:api_key'),
-                shopUrl: req.session.shopUrl,
-                products: data.products,
-                tagsArray: tagsArray,
-                page:parseInt(page)
-            });
-          }); 
-      });
+      console.log(p);
+      // Shopify.put('/admin/products/7530600065.json', {
+      //     "product": {
+      //       "id": p.,
+      //       "tags": tagsArray
+      //     }
+      //   }, function(err, data, headers) {
+      //     callback();          
+          
+      // });
+      // res.render('app_view', {
+      //     title: 'Configuration',
+      //     apiKey: app.nconf.get('oauth:api_key'),
+      //     shopUrl: req.session.shopUrl,
+      //     products: data.products,
+      //     tagsArray: tagsArray,
+      //     page:parseInt(page)
+      // });
     };
-    //274091393 is hardcoded
-    Shopify.get('/admin/products.json?ids=7530600065', function(err, data, headers){
-        setTags(data);
-    });
+
+    var getProducts = function(page, limit) {
+      Shopify.get('/admin/products.json?limit=250&page=1', function(err, data, headers){
+          setTags(data);
+      });
+    }
 };
 
 exports.bookProduct = function(req, res) {
