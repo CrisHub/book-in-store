@@ -99,7 +99,7 @@ exports.renderApp = function(req, res){
           }
         }, function(err, data, headers) {
           // console.log(crtProd);
-          console.log(err ,data);
+          console.log(tagsArray);
           // console.log(p.id);
           // setTags(crtProducts);
       });
