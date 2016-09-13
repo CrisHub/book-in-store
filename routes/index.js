@@ -97,6 +97,7 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
+      console.log(tagsArray);
       if (tagsArray.length){
           Shopify.put('/admin/products/'+p.id+'.json', {
             "product": {
