@@ -90,6 +90,8 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
+      getCount = getCount+1;
+
       if (tagsArray.length) {
         console.log('abc', getCount);
         Shopify.put('/admin/products/'+p.id+'.json', {
