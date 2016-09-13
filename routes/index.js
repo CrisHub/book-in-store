@@ -77,6 +77,7 @@ exports.renderApp = function(req, res){
     var getCount = 0;
     var allProd;
     var setTags = function(data){
+      console.log(getCount);
       var p = data.products[getCount],
           pVariants = p.variants,
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
@@ -93,7 +94,7 @@ exports.renderApp = function(req, res){
       getCount = getCount+1;
 
       if (tagsArray.length) {
-        console.log('abc', getCount);
+        console.log(p.id, getCount);
         Shopify.put('/admin/products/'+p.id+'.json', {
           "product": {
             "id": p.id,
