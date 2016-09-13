@@ -91,7 +91,7 @@ exports.renderApp = function(req, res){
       tagsArray = tagsArray.join(', ');
       Shopify.put('/admin/products/7780017025.json', {
           "product": {
-            "id": p.id,
+            "id": 7780017025,
             "tags": tagsArray
           }
         }, function(err, data, headers) {
