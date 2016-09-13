@@ -98,9 +98,10 @@ exports.renderApp = function(req, res){
             "tags": tagsArray
           }
         }, function(err, data, headers) {
-          console.log(crtProd);
-          console.log(p.id);
-          setTags(crtProducts);
+          // console.log(crtProd);
+          console.log(err ,data);
+          // console.log(p.id);
+          // setTags(crtProducts);
       });
       // res.render('app_view', {
       //     title: 'Configuration',
