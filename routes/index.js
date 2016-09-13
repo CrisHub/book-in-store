@@ -76,8 +76,9 @@ exports.renderApp = function(req, res){
     }
     var getCount = 0;
     var crtProd = 0;
-    var setTags = function(data){
-      var p = data.products[crtProd],
+    var crtProducts;
+    var setTags = function(){
+      var p = crtProducts.products[crtProd],
           pVariants = p.variants,
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
           tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
@@ -91,16 +92,15 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      console.log(p);
-      // Shopify.put('/admin/products/7530600065.json', {
-      //     "product": {
-      //       "id": p.,
-      //       "tags": tagsArray
-      //     }
-      //   }, function(err, data, headers) {
-      //     callback();          
-          
-      // });
+      Shopify.put('/admin/products/'+p.id+'.json', {
+          "product": {
+            "id": p.id,
+            "tags": tagsArray
+          }
+        }, function(err, data, headers) {
+          console.log(crtProd);
+          // setTags(crtProducts);
+      });
       // res.render('app_view', {
       //     title: 'Configuration',
       //     apiKey: app.nconf.get('oauth:api_key'),
@@ -113,7 +113,8 @@ exports.renderApp = function(req, res){
 
     var getProducts = function(page, limit) {
       Shopify.get('/admin/products.json?limit=250&page=1', function(err, data, headers){
-          setTags(data);
+        crtProducts = data;
+          setTags();
       });
     }
     getProducts();
