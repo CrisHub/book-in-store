@@ -116,6 +116,7 @@ exports.renderApp = function(req, res){
           setTags(data);
       });
     }
+    getProducts();
 };
 
 exports.bookProduct = function(req, res) {
