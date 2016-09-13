@@ -99,6 +99,7 @@ exports.renderApp = function(req, res){
           }
         }, function(err, data, headers) {
           console.log(crtProd);
+          console.log(p.id);
           setTags(crtProducts);
       });
       // res.render('app_view', {
