@@ -75,8 +75,9 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     var getCount = 0;
-    var setTags = function(data, callback){
-      var p = data.products[0],
+    var allProd;
+    var setTags = function(data){
+      var p = data.products[getCount],
           pVariants = p.variants,
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
           tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
@@ -89,27 +90,35 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      Shopify.put('/admin/products/7780017025.json', {
+      if (tagsArray.length) {
+        console.log('abc', getCount);
+        Shopify.put('/admin/products/'+p.id+'.json', {
           "product": {
-            "id": 7780017025,
+            "id": p.id,
             "tags": tagsArray
           }
-        }, function(err, data, headers) {
-          // res.render('app_view', {
-          //     title: 'Configuration',
-          //     apiKey: app.nconf.get('oauth:api_key'),
-          //     shopUrl: req.session.shopUrl,
-          //     products: data.products,
-          //     tagsArray: tagsArray,
-          //     page:parseInt(page)
-          // });
-      });
+          }, function(err, data, headers) {
+            // res.render('app_view', {
+            //     title: 'Configuration',
+            //     apiKey: app.nconf.get('oauth:api_key'),
+            //     shopUrl: req.session.shopUrl,
+            //     products: data.products,
+            //     tagsArray: tagsArray,
+            //     page:parseInt(page)
+            // });
+        });
+      } else {
+        getCount = getCount+1;
+        setTags(allProd);
+      }
+      
     };
 
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
-      Shopify.get('/admin/products.json?ids=7780017025', function(err, data, headers){
-          setTags(data);
+      Shopify.get('/admin/products.json?limit=250&page=1', function(err, data, headers){
+        allProd = data;
+          setTags(allProd);
       });
     }
     getProducts();
