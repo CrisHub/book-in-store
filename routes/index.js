@@ -126,12 +126,12 @@ exports.renderApp = function(req, res){
             // });
           }
             return;
-          
+
           getProducts(getCount);
 
       });
     }
-    getProducts();
+    getProducts(1);
 };
 
 exports.bookProduct = function(req, res) {
