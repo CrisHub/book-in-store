@@ -120,7 +120,7 @@ exports.renderApp = function(req, res){
             return;
           }
           getProducts(getCount);
-          console.log(allProd.length);
+          console.log(allProd);
       });
     }
     getProducts();
