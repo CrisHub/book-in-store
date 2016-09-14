@@ -121,11 +121,15 @@ exports.renderApp = function(req, res){
             for (i=0; allProd.length>i; i++) {
               for (k=0; allProd[i].length>k; k++) {
                 for (j=0; allProd[i][k].options.length>j; j++){
-                  console.log(allProd[i][k].options[j].values);
+                  if (allProd[i][k].options[j].name == 'Color'){
+                    for (m=0; allProd[i][k].options[j].values.length>m; m++){
+                      desProd.push(allProdp[i][k].options[j].values[m]);
+                    }
+                  }
                 }
               }
             }
-
+            console.log(desProd);
           if(data.products.length != 250) {
             // _.forEach(allProd, function(value, key) {
             //   _.forEach(value.variants, function(v, k) {
