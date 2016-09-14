@@ -123,16 +123,19 @@ exports.renderApp = function(req, res){
                 for (j=0; allProd[i][k].options.length>j; j++){
                   if (allProd[i][k].options[j].name == 'Color'){
                     desProd.push(allProd[i][k].options[j].values);
+                    _.forEach(allProd[i][k].options[j].values, function(val) {
+                      console.log(val);
+                    });
                   }
                 }
               }
             }
           if(data.products.length != 250) {
             console.log(desProd);
-            return;
           }
+            return;
 
-          getProducts(getCount);
+          // getProducts(getCount);
 
       });
     }
