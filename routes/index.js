@@ -114,7 +114,7 @@ exports.renderApp = function(req, res){
 
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
-      Shopify.get('/admin/products.json?page='+page+'&limit=250', function(err, data, headers){
+      Shopify.get('/admin/products.json?page='+page+'&limit=250&fields=options', function(err, data, headers){
           allProd.push(data.products);
           getCount = getCount + 1;
           if(data.products.length != 250) {
@@ -124,8 +124,9 @@ exports.renderApp = function(req, res){
 
             //   });
             // });
-            return;
           }
+            return;
+          
           getProducts(getCount);
 
       });
