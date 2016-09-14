@@ -90,23 +90,25 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      // console.log(tagsArray, p.id);
-      console.log(p);
-      // Shopify.put('/admin/products/7530600065.json', {
-      //     "product": {
-      //       "id": p.id,
-      //       "tags": tagsArray
-      //     }
-      //   }, function(err, data, headers) {
-      //     // res.render('app_view', {
-      //     //     title: 'Configuration',
-      //     //     apiKey: app.nconf.get('oauth:api_key'),
-      //     //     shopUrl: req.session.shopUrl,
-      //     //     products: data.products,
-      //     //     tagsArray: tagsArray,
-      //     //     page:parseInt(page)
-      //     // });
-      // });
+      console.log(tagsArray, p.id);
+      Shopify.put('/admin/products/7530600065.json', {
+          "product": {
+            "id": p.id,
+            "tags": tagsArray
+          }
+        }, function(err, data, headers) {
+          getCount = getCount+1;
+          console.log(getCount);
+          setTags(allProd);
+          // res.render('app_view', {
+          //     title: 'Configuration',
+          //     apiKey: app.nconf.get('oauth:api_key'),
+          //     shopUrl: req.session.shopUrl,
+          //     products: data.products,
+          //     tagsArray: tagsArray,
+          //     page:parseInt(page)
+          // });
+      });
     };
 
     var getProducts = function(page, limit) {
