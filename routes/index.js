@@ -76,8 +76,7 @@ exports.renderApp = function(req, res){
     }
     var getCount = 0;
     var allProd;
-    var setTags = function(data){
-      console.log(getCount);
+    var setTags = function(data, callback){
       var p = data.products[getCount],
           pVariants = p.variants,
           tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
@@ -91,36 +90,29 @@ exports.renderApp = function(req, res){
       });
       tagsArray = _.uniq(tagsArray);
       tagsArray = tagsArray.join(', ');
-      getCount = getCount+1;
-
-      if (tagsArray.length) {
-        console.log(p.id, getCount);
-        Shopify.put('/admin/products/'+p.id+'.json', {
-          "product": {
-            "id": p.id,
-            "tags": tagsArray
-          }
-          }, function(err, data, headers) {
-            // res.render('app_view', {
-            //     title: 'Configuration',
-            //     apiKey: app.nconf.get('oauth:api_key'),
-            //     shopUrl: req.session.shopUrl,
-            //     products: data.products,
-            //     tagsArray: tagsArray,
-            //     page:parseInt(page)
-            // });
-        });
-      } else {
-        getCount = getCount+1;
-        setTags(allProd);
-      }
-      
+      // console.log(tagsArray, p.id);
+      console.log(p);
+      // Shopify.put('/admin/products/7530600065.json', {
+      //     "product": {
+      //       "id": p.id,
+      //       "tags": tagsArray
+      //     }
+      //   }, function(err, data, headers) {
+      //     // res.render('app_view', {
+      //     //     title: 'Configuration',
+      //     //     apiKey: app.nconf.get('oauth:api_key'),
+      //     //     shopUrl: req.session.shopUrl,
+      //     //     products: data.products,
+      //     //     tagsArray: tagsArray,
+      //     //     page:parseInt(page)
+      //     // });
+      // });
     };
 
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
-      Shopify.get('/admin/products.json?limit=250&page=1', function(err, data, headers){
-        allProd = data;
+      Shopify.get('/admin/products.json', function(err, data, headers){
+          allProd = data;
           setTags(allProd);
       });
     }
