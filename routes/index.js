@@ -118,13 +118,13 @@ exports.renderApp = function(req, res){
           allProd.push(data.products);
           getCount = getCount + 1;
             console.log(allProd[0][0].options[0].values);
-            // for (i=0; allProd.length>i; i++) {
-            //   for (k=0; allProd[i].length>k; k++) {
-            //     for (j=0; allProd[i][k].length>j; j++){
-            //       if (allProd[i][k][j].name == 'Color')
-            //     }
-            //   }
-            // }
+            for (i=0; allProd.length>i; i++) {
+              for (k=0; allProd[i].length>k; k++) {
+                for (j=0; allProd[i][k].options.length>j; j++){
+                  console.log(allProd[i][k].options[j].values);
+                }
+              }
+            }
 
           if(data.products.length != 250) {
             // _.forEach(allProd, function(value, key) {
