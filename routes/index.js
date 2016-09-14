@@ -117,8 +117,8 @@ exports.renderApp = function(req, res){
       Shopify.get('/admin/products.json?page='+page+'&limit=250&fields=options', function(err, data, headers){
           allProd.push(data.products);
           getCount = getCount + 1;
-            console.log(allProd[0]);
-          
+            console.log(allProd[0].length);
+
           if(data.products.length != 250) {
             // _.forEach(allProd, function(value, key) {
             //   _.forEach(value.variants, function(v, k) {
