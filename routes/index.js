@@ -122,9 +122,8 @@ exports.renderApp = function(req, res){
               for (k=0; allProd[i].length>k; k++) {
                 for (j=0; allProd[i][k].options.length>j; j++){
                   if (allProd[i][k].options[j].name == 'Color'){
-                    desProd.push(allProd[i][k].options[j].values);
                     _.forEach(allProd[i][k].options[j].values, function(val) {
-                      console.log(val);
+                      desProd.push(val);
                     });
                   }
                 }
@@ -132,10 +131,11 @@ exports.renderApp = function(req, res){
             }
           if(data.products.length != 250) {
             console.log(desProd);
-          }
             return;
+            
+          }
 
-          // getProducts(getCount);
+          getProducts(getCount);
 
       });
     }
