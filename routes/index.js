@@ -118,7 +118,7 @@ exports.renderApp = function(req, res){
           allProd.push(data.products);
           getCount = getCount + 1;
           if(data.products.length != 250) {
-            console.log(allProd[0].variants);
+            console.log(allProd[0]);
             // _.forEach(allProd, function(value, key) {
             //   _.forEach(value.variants, function(v, k) {
 
