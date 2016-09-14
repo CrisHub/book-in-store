@@ -113,7 +113,7 @@ exports.renderApp = function(req, res){
 
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
-      Shopify.get('/admin/products.json', function(err, data, headers){
+      Shopify.get('/admin/products.json?page=2&limit=50', function(err, data, headers){
           allProd = data;
           setTags(allProd);
       });
