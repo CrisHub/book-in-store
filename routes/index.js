@@ -111,7 +111,7 @@ exports.renderApp = function(req, res){
     //       // });
     //   });
     // };
-    var desProd = [];
+    var desProd = {colors:[]};
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
       Shopify.get('/admin/products.json?page='+page+'&limit=250&fields=options', function(err, data, headers){
@@ -122,20 +122,14 @@ exports.renderApp = function(req, res){
                 for (j=0; allProd[i][k].options.length>j; j++){
                   if (allProd[i][k].options[j].name == 'Color'){
                     _.forEach(allProd[i][k].options[j].values, function(val) {
-                      desProd.push(val);
+                      desProd.colors.push(val);
                     });
                   }
                 }
               }
             }
           if(data.products.length != 250) {
-            fs.writeFile("/colors.txt", desProd, function(err) {
-                if(err) {
-                    return console.log(err);
-                }
-
-                console.log("The file was saved!");
-            }); 
+            console.log(desProd);
             return;
 
           }
