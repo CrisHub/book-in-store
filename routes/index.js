@@ -75,47 +75,52 @@ exports.renderApp = function(req, res){
         page = parsedUrl.query.page;
     }
     var getCount = 0;
-    var allProd;
-    var setTags = function(data, callback){
-      var p = data.products[getCount],
-          pVariants = p.variants,
-          tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
-          tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
-          tagsArray = tagsArrayTrimed.split(',');
-      _.forEach(pVariants, function(value, key) {
-        if (value.inventory_quantity > 0) {
-          tagsArray.push(value.option1)
-          tagsArray.push(value.option2);
-        }
-      });
-      tagsArray = _.uniq(tagsArray);
-      tagsArray = tagsArray.join(', ');
-      console.log(tagsArray, p.id);
-      Shopify.put('/admin/products/'+p.id+'.json', {
-          "product": {
-            "id": p.id,
-            "tags": tagsArray
-          }
-        }, function(err, data, headers) {
-          getCount = getCount+1;
-          console.log(getCount);
-          setTags(allProd);
-          // res.render('app_view', {
-          //     title: 'Configuration',
-          //     apiKey: app.nconf.get('oauth:api_key'),
-          //     shopUrl: req.session.shopUrl,
-          //     products: data.products,
-          //     tagsArray: tagsArray,
-          //     page:parseInt(page)
-          // });
-      });
-    };
+    var allProd = [];
+    // var setTags = function(data, callback){
+    //   var p = data.products[getCount],
+    //       pVariants = p.variants,
+    //       tagsArrayTrimed = p.tags.replace(/^[,\s]+|[,\s]+$/g, ''),
+    //       tagsArrayTrimed = tagsArrayTrimed.replace(/\s*,\s*/g, ','),
+    //       tagsArray = tagsArrayTrimed.split(',');
+    //   _.forEach(pVariants, function(value, key) {
+    //     if (value.inventory_quantity > 0) {
+    //       tagsArray.push(value.option1)
+    //       tagsArray.push(value.option2);
+    //     }
+    //   });
+    //   tagsArray = _.uniq(tagsArray);
+    //   tagsArray = tagsArray.join(', ');
+    //   console.log(tagsArray, p.id);
+    //   Shopify.put('/admin/products/'+p.id+'.json', {
+    //       "product": {
+    //         "id": p.id,
+    //         "tags": tagsArray
+    //       }
+    //     }, function(err, data, headers) {
+    //       getCount = getCount+1;
+    //       console.log(getCount);
+    //       setTags(allProd);
+    //       // res.render('app_view', {
+    //       //     title: 'Configuration',
+    //       //     apiKey: app.nconf.get('oauth:api_key'),
+    //       //     shopUrl: req.session.shopUrl,
+    //       //     products: data.products,
+    //       //     tagsArray: tagsArray,
+    //       //     page:parseInt(page)
+    //       // });
+    //   });
+    // };
 
     var getProducts = function(page, limit) {
       //274091393 is hardcoded
-      Shopify.get('/admin/products.json?page=6&limit=250', function(err, data, headers){
-          allProd = data;
-          setTags(allProd);
+      Shopify.get('/admin/products.json?page='+page+'&limit=250', function(err, data, headers){
+          allProd.push(data.products);
+          getCount = getCount + 1;
+          if(data.products.length != 250) {
+            return;
+          }
+          getProducts(getCount);
+          console.log(allProd.length);
       });
     }
     getProducts();
