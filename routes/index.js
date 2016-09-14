@@ -127,15 +127,10 @@ exports.renderApp = function(req, res){
                 }
               }
             }
-            console.log(desProd);
           if(data.products.length != 250) {
-            // _.forEach(allProd, function(value, key) {
-            //   _.forEach(value.variants, function(v, k) {
-
-            //   });
-            // });
-          }
+            console.log(desProd);
             return;
+          }
 
           getProducts(getCount);
 
