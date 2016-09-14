@@ -122,9 +122,7 @@ exports.renderApp = function(req, res){
               for (k=0; allProd[i].length>k; k++) {
                 for (j=0; allProd[i][k].options.length>j; j++){
                   if (allProd[i][k].options[j].name == 'Color'){
-                    for (m=0; allProd[i][k].options[j].values.length>m; m++){
-                      desProd.push(allProdp[i][k].options[j].values[m]);
-                    }
+                    desProd.push(allProd[i][k].options[j].values);
                   }
                 }
               }
