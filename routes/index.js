@@ -76,6 +76,7 @@ exports.renderApp = function(req, res){
     }
     var getCount = 0;
     var allProd = [];
+    var colors = [];
     // var setTags = function(data, callback){
     //   var p = data.products[getCount],
     //       pVariants = p.variants,
@@ -117,10 +118,16 @@ exports.renderApp = function(req, res){
           allProd.push(data.products);
           getCount = getCount + 1;
           if(data.products.length != 250) {
+            console.log(allProd[0].variants);
+            // _.forEach(allProd, function(value, key) {
+            //   _.forEach(value.variants, function(v, k) {
+
+            //   });
+            // });
             return;
           }
           getProducts(getCount);
-          console.log(allProd);
+
       });
     }
     getProducts();
