@@ -68,7 +68,7 @@ exports.index = function(req, res){
  * render the main app view
  */
 exports.renderApp = function(req, res){
-    setShopify(req, res); 
+    // setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     res.render('app_view', {
         title: 'Configuration',
