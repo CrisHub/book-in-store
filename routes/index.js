@@ -165,8 +165,14 @@ exports.renderApp = function(req, res){
 exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
-    console.log(req.body);
-    res.json({"success":true});
+    db.Product
+    .findOrCreate({where: {variantId: req.body.variantId, email:req.body.email, quantity:req.body.quantity}})
+    .spread(function(product, created) {
+      console.log(created)
+      res.json(product.get({
+        plain: true
+      }));
+    });
 };
 
 exports.viewProduct = function(req, res) {
