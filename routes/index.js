@@ -80,7 +80,7 @@ exports.renderApp = function(req, res){
   })
   .then(function(products) {
     var dataVals = {};
-      if (product) {
+      if (products) {
         console.log(products);
         dataVals = products.rows;
       }
@@ -89,7 +89,7 @@ exports.renderApp = function(req, res){
           apiKey: app.nconf.get('oauth:api_key'),
           shopUrl: req.session.shopUrl,
           body: 'Database configured',
-          product:dataVals
+          products:dataVals
       });
   });
 
