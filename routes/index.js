@@ -12,7 +12,7 @@ var app = require('../app'),
     request     = require('request'),
     shopifyAPI  = require('shopify-node-api'),
     fs = require('fs'),
-    db      = require('../models'),
+    db      = require('../models/product'),
     _ = require('lodash');
 
 
