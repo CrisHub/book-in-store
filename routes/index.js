@@ -161,18 +161,7 @@ exports.renderApp = function(req, res){
 exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
-    var page = 1;
-    if(parsedUrl.query.page){
-        page = parsedUrl.query.page;
-    }
-    
-    Shopify.post('/admin/products/7530600065/metafields.json',
-        {
-            "metafield": req.body
-        }, function(err, data, headers) {
-        console.log("POST: ", JSON.stringify(data));
-        
-    });
+    console.log(req.body);
 };
 
 exports.viewProduct = function(req, res) {
