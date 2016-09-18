@@ -73,12 +73,13 @@ exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
+      where:{'type':'book-in-store'},
       raw:true,
       offset: 0,
       limit: 250
   })
   .then(function(products) {
-        console.log(products);
+      console.log(products);
       res.render('app_view', {
           title: 'Configuration',
           apiKey: app.nconf.get('oauth:api_key'),
