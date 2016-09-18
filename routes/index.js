@@ -73,8 +73,7 @@ exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
-     group:['type'],
-     raw:true,
+     group:['type','id'],
      offset: 0,
      limit: 250
   })
