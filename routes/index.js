@@ -71,13 +71,13 @@ exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findOne({ where: {variantId: 123} }).then(function(product) {
-      console.log(product);
+      console.log(product.dataValues);
       res.render('app_view', {
           title: 'Configuration',
           apiKey: app.nconf.get('oauth:api_key'),
           shopUrl: req.session.shopUrl,
           body: 'Database configured',
-          product:product
+          product:product.dataValues
       });
     });
     
