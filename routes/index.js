@@ -73,22 +73,18 @@ exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
-     group:['type','id'],
-     offset: 0,
-     limit: 250
+      raw:true,
+      offset: 0,
+      limit: 250
   })
   .then(function(products) {
-    var dataVals = {};
-      if (products) {
         console.log(products);
-        dataVals = products.rows;
-      }
       res.render('app_view', {
           title: 'Configuration',
           apiKey: app.nconf.get('oauth:api_key'),
           shopUrl: req.session.shopUrl,
           body: 'Database configured',
-          products:dataVals
+          products:products
       });
   });
 
