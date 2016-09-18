@@ -164,6 +164,7 @@ exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
     console.log(req.body);
+    res.json({"success":true});
 };
 
 exports.viewProduct = function(req, res) {
