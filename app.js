@@ -56,7 +56,6 @@ var corsOptions = {
   origin: function(origin, callback){
       var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
       callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
-    }
   },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
