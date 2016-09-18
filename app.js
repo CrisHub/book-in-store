@@ -14,6 +14,7 @@ var bodyParser = require('body-parser'),
     path = require('path'),
     nconf = require('nconf'),
     db      = require('./models'),
+    cors = require('cors'),
     morgan = require('morgan');
 
 //load settings from environment config
@@ -49,6 +50,17 @@ app.set('port', process.env.PORT || 3000);
 
 var appAuth = new shopifyAuth.AppAuth();
 
+var whitelist = ['https://www.caramel.ro','http://www.caramel.ro'];
+
+var corsOptions = {
+  origin: function(origin, callback){
+      var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+      callback(originIsWhitelisted ? null : 'Bad Request', originIsWhitelisted);
+    }
+  },
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 //configure routes
 app.get('/', routes.index);
 app.get('/auth_app', appAuth.initAuth);
@@ -57,7 +69,7 @@ app.get('/auth_code', appAuth.getCode);
 app.get('/auth_token', appAuth.getAccessToken);
 app.get('/render_app', routes.renderApp);
 app.get('/view-product/:productId', routes.viewProduct);
-app.post('/book-product', routes.bookProduct);
+app.post('/book-product', cors(corsOptions), routes.bookProduct);
 
 
 db.sequelize.sync().then(function() {
