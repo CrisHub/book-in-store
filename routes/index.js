@@ -72,11 +72,16 @@ exports.index = function(req, res){
 exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
-    db.Product.findOne({ where: {variantId: 123} }).then(function(product) {
-      var dataVals = {};
+    db.Product.findAll({
+     group:'type',
+     offset: 0,
+     limit: 250
+  })
+  .then(function(products) {
+    var dataVals = {};
       if (product) {
-        console.log(product.dataValues);
-        dataVals = product.dataValues;
+        console.log(products);
+        dataVals = products.rows;
       }
       res.render('app_view', {
           title: 'Configuration',
@@ -85,8 +90,8 @@ exports.renderApp = function(req, res){
           body: 'Database configured',
           product:dataVals
       });
-    });
-    
+  });
+
     // var page = 1;
     // if(parsedUrl.query.page){
     //     page = parsedUrl.query.page;
