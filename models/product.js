@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     customerPhone: DataTypes.STRING,
     comments: DataTypes.STRING,
     store: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    status: DataTypes.STRING
   });
 }
