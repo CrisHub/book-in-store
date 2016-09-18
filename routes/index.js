@@ -165,6 +165,7 @@ exports.renderApp = function(req, res){
 exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
+    console.log(typeof(req.body.variantId));
     db.Product
     .findOrCreate({where: {variantId: req.body.variantId, email:req.body.email, quantity:req.body.quantity}})
     .spread(function(product, created) {
