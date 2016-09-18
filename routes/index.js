@@ -19,8 +19,8 @@ var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
-    // req.session.oauth_access_token = '997beac785c428cf78b878961f1ec62a';
-    // req.session.shopUrl = 'https://caramel-dev.myshopify.com';
+    req.session.oauth_access_token = 'c70a3aa425c46ec2e70067f1f6b36b10';
+    req.session.shopUrl = 'https://caramel-dev.myshopify.com';
     //In case server stops and starts again, check if we need the auth token again
     if (!req.session.oauth_access_token) {
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -49,7 +49,7 @@ var setShopify = function(req, res) {
  * redirect to app authorisation.
  */
 exports.index = function(req, res){
-    req.session.oauth_access_token = null;
+    req.session.oauth_access_token = 'c70a3aa425c46ec2e70067f1f6b36b10';
     if (!req.session.oauth_access_token) {
         var parsedUrl = url.parse(req.originalUrl, true);
         if (parsedUrl.query && parsedUrl.query.shop) {
@@ -73,6 +73,7 @@ exports.renderApp = function(req, res){
     res.render('app_view', {
         title: 'Configuration',
         apiKey: app.nconf.get('oauth:api_key'),
+        shopUrl: req.session.shopUrl,
         body: 'Database configured'
     });
     // var page = 1;

@@ -71,7 +71,6 @@ exports.AppAuth = function() {
                     return;
                 } else {
                     req.session.oauth_access_token = access_token;
-                    console.log(access_token);
                     res.redirect("/render_app");
                 }
             }
