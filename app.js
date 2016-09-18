@@ -50,8 +50,7 @@ app.set('port', process.env.PORT || 3000);
 var appAuth = new shopifyAuth.AppAuth();
 
 //configure routes
-app.get('/', routes.global.db);
-app.get('/index',routes.index);
+app.get('/', routes.index);
 app.get('/auth_app', appAuth.initAuth);
 app.get('/escape_iframe', appAuth.escapeIframe);
 app.get('/auth_code', appAuth.getCode);
