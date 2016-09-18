@@ -71,7 +71,7 @@ exports.index = function(req, res){
 exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
-    db.findOne({ where: {variantId: 123} }).then(function(porduct) {
+    db.product.findOne({ where: {variantId: 123} }).then(function(porduct) {
       res.render('app_view', {
           title: 'Configuration',
           apiKey: app.nconf.get('oauth:api_key'),
