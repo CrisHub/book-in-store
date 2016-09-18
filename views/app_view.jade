@@ -5,28 +5,9 @@ block content
     ShopifyApp.ready(function(){
         ShopifyApp.Bar.loadingOff();
         ShopifyApp.Bar.initialize({
-            title: '#{title}',
-          pagination: {
-            next: {
-                href: "/render_app?page=#{page+1}"
-            },
-            previous: {
-                href: "/render_app?page=#{page-1}",
-            }
-          }
+          title: '#{title}',
         });
     });
     
-  each p in products
-    div=p.tags
-  div=tagsArray    
-  //- h3 Reserved products list
-  //- table(class="table table-bordered table-condensed")
-  //-   tr
-  //-     th Id
-  //-     th Action      
-  //-   each collection in collections
-  //-     tr
-  //-       td=collection.product_id
-  //-       td 
-  //-         a(href="/view-product/#{collection.product_id}", class="btn btn-primary") Edit product
+  h1=title
+  div=body

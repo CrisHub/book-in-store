@@ -15,9 +15,12 @@
     "jsonfile": "^2.3.1",
     "lodash": "^4.15.0",
     "morgan": "~1.6.1",
+    "mysql": "^2.11.1",
     "nconf": "~0.8.0",
     "oauth": "~0.9.14",
+    "pg": "^6.1.0",
     "request": "^2.74.0",
+    "sequelize": "^3.24.3",
     "shopify-node-api": "^1.7.2"
   }
 }

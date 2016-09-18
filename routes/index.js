@@ -62,6 +62,34 @@ exports.index = function(req, res){
     }
 };
 
+exports.golbal.db = function(req, res) {
+  if (!global.hasOwnProperty('db')) {
+    var Sequelize = require('sequelize')
+      , sequelize = null
+
+    // the application is executed on Heroku ... use the postgres database
+    sequelize = new Sequelize('postgres://ssifxtlukxuvhx:bZanhYWi7SKRsOqZEMRTTeWLwL@ec2-54-217-213-156.eu-west-1.compute.amazonaws.com:5432/d86jck52dm112l', {
+      dialect:  'postgres',
+      protocol: 'postgres',
+      port:     5432,
+      host:     'ec2-54-217-213-156.eu-west-1.compute.amazonaws.com',
+      logging:  true //false
+    });
+
+    global.db = {
+      Sequelize: Sequelize,
+      sequelize: sequelize,
+      Product:      sequelize.import(__dirname + '/product') 
+      // add your other models here
+    }
+    res.redirect('/index');
+    /*
+      Associations can be defined here. E.g. like this:
+      global.db.User.hasMany(global.db.SomethingElse)
+    */
+  }
+};
+
 /*
  * Get /render_app
  *
@@ -70,13 +98,18 @@ exports.index = function(req, res){
 exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
-    var page = 1;
-    if(parsedUrl.query.page){
-        page = parsedUrl.query.page;
-    }
-    var getCount = 0;
-    var allProd = [];
-    var colors = [];
+    res.render('app_view', {
+        title: 'Configuration',
+        apiKey: app.nconf.get('oauth:api_key'),
+        body: 'Database configured'
+    });
+    // var page = 1;
+    // if(parsedUrl.query.page){
+    //     page = parsedUrl.query.page;
+    // }
+    // var getCount = 0;
+    // var allProd = [];
+    // var colors = [];
     // var setTags = function(data, callback){
     //   var p = data.products[getCount],
     //       pVariants = p.variants,
@@ -111,36 +144,36 @@ exports.renderApp = function(req, res){
     //       // });
     //   });
     // };
-    var desProd = [];
-    var getProducts = function(page, limit) {
-      //274091393 is hardcoded
-      Shopify.get('/admin/products.json?page='+page+'&limit=250&fields=options', function(err, data, headers){
-          allProd.push(data.products);
-          getCount = getCount + 1;
-            for (i=0; allProd.length>i; i++) {
-              for (k=0; allProd[i].length>k; k++) {
-                for (j=0; allProd[i][k].options.length>j; j++){
-                  if (allProd[i][k].options[j].name == 'Color'){
-                    _.forEach(allProd[i][k].options[j].values, function(val) {
-                      desProd.push(val);
-                    });
-                  }
-                }
-              }
-            }
-          if(data.products.length != 250) {
-            desProd = _.uniq(desProd);
-            console.log(desProd);
+    // var desProd = [];
+    // var getProducts = function(page, limit) {
+    //   //274091393 is hardcoded
+    //   Shopify.get('/admin/products.json?page='+page+'&limit=250&fields=options', function(err, data, headers){
+    //       allProd.push(data.products);
+    //       getCount = getCount + 1;
+    //         for (i=0; allProd.length>i; i++) {
+    //           for (k=0; allProd[i].length>k; k++) {
+    //             for (j=0; allProd[i][k].options.length>j; j++){
+    //               if (allProd[i][k].options[j].name == 'Color'){
+    //                 _.forEach(allProd[i][k].options[j].values, function(val) {
+    //                   desProd.push(val);
+    //                 });
+    //               }
+    //             }
+    //           }
+    //         }
+    //       if(data.products.length != 250) {
+    //         desProd = _.uniq(desProd);
+    //         console.log(desProd);
 
-            return;
+    //         return;
 
-          }
+    //       }
 
-          getProducts(getCount);
+    //       getProducts(getCount);
 
-      });
-    }
-    getProducts(1);
+    //   });
+    // }
+    // getProducts(1);
 };
 
 exports.bookProduct = function(req, res) {

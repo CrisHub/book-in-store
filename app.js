@@ -13,6 +13,7 @@ var bodyParser = require('body-parser'),
     shopifyAuth = require('./routes/shopify_auth'),
     path = require('path'),
     nconf = require('nconf'),
+    db      = require('./models'),
     morgan = require('morgan');
 
 //load settings from environment config
@@ -49,14 +50,18 @@ app.set('port', process.env.PORT || 3000);
 var appAuth = new shopifyAuth.AppAuth();
 
 //configure routes
-app.get('/', routes.index);
+app.get('/', routes.global.db);
+app.get('/index',routes.index);
 app.get('/auth_app', appAuth.initAuth);
 app.get('/escape_iframe', appAuth.escapeIframe);
 app.get('/auth_code', appAuth.getCode);
 app.get('/auth_token', appAuth.getAccessToken);
 app.get('/render_app', routes.renderApp);
 app.get('/view-product/:productId', routes.viewProduct);
+app.get('/products', product.list);
 app.post('/book-product', routes.bookProduct);
-app.listen(app.get('port'), function() {
-    console.log('Listening on port ' + app.get('port'));
-});
+db.sequelize.sync().then(function() {
+  app.listen(app.get('port'), function() {
+      console.log('Listening on port ' + app.get('port'));
+  });
+})
