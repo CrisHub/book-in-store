@@ -12,6 +12,7 @@ var app = require('../app'),
     request     = require('request'),
     shopifyAPI  = require('shopify-node-api'),
     fs = require('fs'),
+    db      = require('./models'),
     _ = require('lodash');
 
 
@@ -70,12 +71,16 @@ exports.index = function(req, res){
 exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
-    res.render('app_view', {
-        title: 'Configuration',
-        apiKey: app.nconf.get('oauth:api_key'),
-        shopUrl: req.session.shopUrl,
-        body: 'Database configured'
+    db.findOne({ where: {variantId: 123} }).then(function(porduct) {
+      res.render('app_view', {
+          title: 'Configuration',
+          apiKey: app.nconf.get('oauth:api_key'),
+          shopUrl: req.session.shopUrl,
+          body: 'Database configured',
+          product:porduct
+      });
     });
+    
     // var page = 1;
     // if(parsedUrl.query.page){
     //     page = parsedUrl.query.page;
