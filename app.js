@@ -57,7 +57,6 @@ app.get('/auth_code', appAuth.getCode);
 app.get('/auth_token', appAuth.getAccessToken);
 app.get('/render_app', routes.renderApp);
 app.get('/view-product/:productId', routes.viewProduct);
-app.get('/products', product.list);
 app.post('/book-product', routes.bookProduct);
 db.sequelize.sync().then(function() {
   app.listen(app.get('port'), function() {
