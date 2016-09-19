@@ -21,23 +21,23 @@ block content
       tbody
         tr
           td
-            #{product.title}
+            span=product.name
             img(src="#{product.image}", style="max-width:75px")
           td=product.variant
           td=product.quantity
           td
             div
               strong='Nume: '
-              #{product.customerFirstName}
+              span=product.customerFirstName
             div
               strong='Prenume: '
-              #{product.customerLastName}
+              span=product.customerLastName
             div
               strong='Email: '
-              #{product.customerEmail}
+              span=product.customerEmail
             div
               strong='Telefon: '
-              #{product.customerPhone}
+              span=product.customerPhone
           td=product.store
           td=product.comments
 
