@@ -18,7 +18,8 @@ block content
       th='Mentiuni'
     each product in products
       tr
-        td=product.title+' '+img(src="#{product.image}")
+        td=product.title
+          img(src="#{product.image}")
         td=product.variant
         td=product.quantity
         td
