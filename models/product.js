@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     comments: DataTypes.STRING,
     store: DataTypes.STRING,
     type: DataTypes.STRING,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    url: DataTypes.STRING
   });
 }

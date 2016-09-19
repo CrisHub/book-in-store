@@ -2,6 +2,6 @@ body {
   font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-table td{
+table.table-sm td{
   vertical-align: middle;
 }
