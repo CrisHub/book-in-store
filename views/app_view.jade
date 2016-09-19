@@ -8,6 +8,12 @@ block content
           title: '#{title}',
         });
     });
+    //- $(document).ready(function() {
+    //-   $('.btn-primary').on('click', function() {
+    //-     var pId = $(this).data('id');
+    //-     $.ajax('')
+    //-   });
+    //- });
   table.table.table-sm.table-bordered
     thead.thead-inverse
       tr
@@ -46,6 +52,5 @@ block content
           td=product.store
           td=product.comments
           td
-            button(class="btn btn-primary")='Ridicat'
+            a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
 
-  

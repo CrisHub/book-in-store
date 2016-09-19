@@ -168,10 +168,20 @@ exports.bookProduct = function(req, res) {
     db.Product
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
-      res.json(product.get({
+      res.json({product:product.get({
         plain: true
-      }),{created:created});
+      }), {created:created}});
     });
+};
+
+exports.deleteProduct = function(req, res) {
+  setShopify(req, res);
+  var parsedUrl = url.parse(req.originalUrl, true);
+  console.log(parsedUrl);
+  console.log(req.params);
+  res.redirect("/render_app");
+  // db.Product
+  // .findOne({where:{id:req.params.productId}})
 };
 
 exports.viewProduct = function(req, res) {
