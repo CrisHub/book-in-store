@@ -175,11 +175,12 @@ exports.bookProduct = function(req, res) {
 exports.deleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
-  console.log('parsedUrl: '+parsedUrl.productId);
-  console.log('reqParams: '+req.params.productId);
-  res.redirect("/render_app");
-  // db.Product
-  // .findOne({where:{id:req.params.productId}})
+
+  db.Product
+  .destroy({where:{id:req.params.productId}, force:true})
+  .then(function(product) {
+    res.redirect("/render_app");
+  })
 };
 
 exports.viewProduct = function(req, res) {
