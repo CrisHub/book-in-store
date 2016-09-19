@@ -18,22 +18,22 @@ block content
       th='Mentiuni'
     each product in products
       tr
-        td=product.title+' '+product.image
+        td=product.title+' '+img(src="#{product.image}")
         td=product.variant
         td=product.quantity
         td
           div
             strong='Nume: '
-            product.customerFirstName
+            #{product.customerFirstName}
           div
             strong='Prenume: '
-            '#{product.customerLastName}'
+            #{product.customerLastName}
           div
             strong='Email: '
-            '#{product.customerEmail}'
+            #{product.customerEmail}
           div
             strong='Telefon: '
-            '#{product.customerPhone}'
+            #{product.customerPhone}
         td=product.store
         td=product.comments
 
