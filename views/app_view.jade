@@ -8,10 +8,33 @@ block content
           title: '#{title}',
         });
     });
-    
-  h1=title
-  div=body
-  div='alabala'
-  div=products
+  table
+    tr
+      th='Titlu'
+      th='Variant'
+      th='QTY'
+      th='Client'
+      th='Magazin'
+      th='Mentiuni'
+    each product in products
+    tr
+      td=product.title+' '+product.image
+      td=product.variant
+      td=product.quantity
+      td
+        div
+          strong='Nume: '
+          product.customerFirstName
+        div
+          strong='Prenume: '
+          '#{porduct.customerLastName}'
+        div
+          strong='Email: '
+          '#{product.customerEmail}'
+        div
+          strong='Telefon: '
+          '#{product.customerPhone}'
+      td=product.store
+      td=product.comments
 
   

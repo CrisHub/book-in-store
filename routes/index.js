@@ -165,14 +165,12 @@ exports.renderApp = function(req, res){
 exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
-    console.log(typeof(req.body.variantId));
     db.Product
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
-      console.log(created)
       res.json(product.get({
         plain: true
-      }));
+      }),{created:created});
     });
 };
 
