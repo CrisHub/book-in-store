@@ -8,18 +8,21 @@ block content
           title: '#{title}',
         });
     });
-  table.table.table-sm
+  table.table.table-sm.table-bordered
     thead.thead-inverse
       tr
+        th='Idx'
         th='Titlu'
         th='Variant'
         th='QTY'
         th='Client'
         th='Magazin'
         th='Mentiuni'
+    -var index = 0
     each product in products
       tbody
         tr
+          td=index++
           td
             span=product.name
             img(src="#{product.image}", style="max-width:75px")
