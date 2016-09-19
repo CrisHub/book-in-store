@@ -79,7 +79,6 @@ exports.renderApp = function(req, res){
       limit: 250
   })
   .then(function(products) {
-      console.log(products);
       res.render('app_view', {
           title: 'Configuration',
           apiKey: app.nconf.get('oauth:api_key'),
@@ -176,8 +175,8 @@ exports.bookProduct = function(req, res) {
 exports.deleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
-  console.log(parsedUrl);
-  console.log(req.params);
+  console.log('parsedUrl: '+parsedUrl);
+  console.log('reqParams: '+req.params);
   res.redirect("/render_app");
   // db.Product
   // .findOne({where:{id:req.params.productId}})
