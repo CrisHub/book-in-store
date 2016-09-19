@@ -168,9 +168,8 @@ exports.bookProduct = function(req, res) {
     db.Product
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
-      res.json({product:product.get({
-        plain: true
-      }), {created:created}});
+      var product = product.get({plain: true});
+      res.json({product:product,created:created});
     });
 };
 
