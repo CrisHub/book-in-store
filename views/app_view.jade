@@ -17,24 +17,24 @@ block content
       th='Magazin'
       th='Mentiuni'
     each product in products
-    tr
-      td=product.title+' '+product.image
-      td=product.variant
-      td=product.quantity
-      td
-        div
-          strong='Nume: '
-          product.customerFirstName
-        div
-          strong='Prenume: '
-          '#{porduct.customerLastName}'
-        div
-          strong='Email: '
-          '#{product.customerEmail}'
-        div
-          strong='Telefon: '
-          '#{product.customerPhone}'
-      td=product.store
-      td=product.comments
+      tr
+        td=product.title+' '+product.image
+        td=product.variant
+        td=product.quantity
+        td
+          div
+            strong='Nume: '
+            product.customerFirstName
+          div
+            strong='Prenume: '
+            '#{porduct.customerLastName}'
+          div
+            strong='Email: '
+            '#{product.customerEmail}'
+          div
+            strong='Telefon: '
+            '#{product.customerPhone}'
+        td=product.store
+        td=product.comments
 
   
