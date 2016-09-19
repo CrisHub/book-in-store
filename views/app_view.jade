@@ -18,7 +18,8 @@ block content
         th='Client'
         th='Magazin'
         th='Mentiuni'
-    -var index = 0
+        th='Marcheaza'
+    -var index = 1
     each product in products
       tbody
         tr
@@ -43,5 +44,7 @@ block content
               span=product.customerPhone
           td=product.store
           td=product.comments
+          td
+            button(class="btn btn-primary")='Ridicat'
 
   
