@@ -8,34 +8,37 @@ block content
           title: '#{title}',
         });
     });
-  table
-    tr
-      th='Titlu'
-      th='Variant'
-      th='QTY'
-      th='Client'
-      th='Magazin'
-      th='Mentiuni'
-    each product in products
+  table.table.table-sm
+    thead.thead-inverse
       tr
-        td=product.title
-          img(src="#{product.image}")
-        td=product.variant
-        td=product.quantity
-        td
-          div
-            strong='Nume: '
-            #{product.customerFirstName}
-          div
-            strong='Prenume: '
-            #{product.customerLastName}
-          div
-            strong='Email: '
-            #{product.customerEmail}
-          div
-            strong='Telefon: '
-            #{product.customerPhone}
-        td=product.store
-        td=product.comments
+        th='Titlu'
+        th='Variant'
+        th='QTY'
+        th='Client'
+        th='Magazin'
+        th='Mentiuni'
+    each product in products
+      tbody
+        tr
+          td
+            #{product.title}
+            img(src="#{product.image}", style="max-width:75px")
+          td=product.variant
+          td=product.quantity
+          td
+            div
+              strong='Nume: '
+              #{product.customerFirstName}
+            div
+              strong='Prenume: '
+              #{product.customerLastName}
+            div
+              strong='Email: '
+              #{product.customerEmail}
+            div
+              strong='Telefon: '
+              #{product.customerPhone}
+          td=product.store
+          td=product.comments
 
   
