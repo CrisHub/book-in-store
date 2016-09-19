@@ -15,6 +15,6 @@ module.exports = function(sequelize, DataTypes) {
     store: DataTypes.STRING,
     type: DataTypes.STRING,
     status: DataTypes.STRING,
-    url: DataTypes.STRING
+    link: DataTypes.STRING
   });
 }
