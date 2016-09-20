@@ -90,12 +90,10 @@ exports.renderApp = function(req, res){
       "merge": true,
       "merge_language": "mailchimp",
       "merge_vars": [{
-              "rcpt": "recipient.email@example.com",
+              "rcpt": "ccristian.moldovan@yahoo.com",
               "vars": [{
-                      "name": "merge2",
-                      "content": "merge2 content",
-                      'thisistest':'yaaay!'
-
+                      "name": "thisistest",
+                      'content':'yaaay!'
                   }]
           }],
   };
