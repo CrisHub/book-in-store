@@ -67,6 +67,7 @@ app.get('/escape_iframe', appAuth.escapeIframe);
 app.get('/auth_code', appAuth.getCode);
 app.get('/auth_token', appAuth.getAccessToken);
 app.get('/render_app', routes.renderApp);
+app.get('/preorderd_products', routes.preorderProduct);
 app.get('/view-product/:productId', routes.viewProduct);
 app.get('/delete-product/:productId', routes.deleteProduct);
 app.post('/book-product', cors(corsOptions), routes.bookProduct);
