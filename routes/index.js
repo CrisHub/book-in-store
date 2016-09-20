@@ -93,12 +93,13 @@ exports.renderApp = function(req, res){
               "rcpt": "recipient.email@example.com",
               "vars": [{
                       "name": "merge2",
-                      "content": "merge2 content"
+                      "content": "merge2 content",
+                      'thisistest':'yaaay!'
+
                   }]
           }],
   };
   var async = false;
-  var ip_pool = "Main Pool";
   mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async}, function(result) {
       console.log(result);
       /*
