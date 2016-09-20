@@ -72,16 +72,10 @@ exports.index = function(req, res){
  */
 exports.renderApp = function(req, res){
   var template_name = "Test Template";
-  var template_content = [{
-          "name": "example name",
-          "content": "example content"
-      }];
   var message = {
-      "html": "<p>Example HTML content</p>",
-      "text": "Example text content",
       "subject": "Rezervare produs",
       "from_email": "contact@caramel.ro",
-      "from_name": "Caramel.ro",
+      "from_name": "Caramel Fashion",
       "to": [{
               "email": "ccristian.moldovan@yahoo.com",
               "name": "Cristian Moldovan",
@@ -98,7 +92,7 @@ exports.renderApp = function(req, res){
           }],
   };
   var async = false;
-  mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async}, function(result) {
+  mandrill_client.messages.sendTemplate({"template_name": template_name, "message": message, "async": async}, function(result) {
       console.log(result);
       /*
       [{
