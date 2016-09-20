@@ -14,11 +14,8 @@ block content
     //-     $.ajax('')
     //-   });
     //- });
-  div=type
-  if type='book-in-store'
-    a(style="margin-bottom:20px;" class="btn-primary btn", href="/preorderd_products")='Produse Precomandate'
-  if type='preorder'
-    a(style="margin-bottom:20px;" class="btn btn-primary", href="/render_app")='Produse Rezervate'
+  a(style="margin-bottom:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele preordered'
+  a(style="margin-bottom:20px;" class="btn btn-primary", href="/render_app")='Vezi produsele rezervate'
 
   table.table.table-sm.table-bordered
     thead.thead-inverse
