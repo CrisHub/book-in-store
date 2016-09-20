@@ -230,7 +230,7 @@ exports.preorderProduct = function(req, res) {
       offset: 0,
       limit: 250
     })
-    .then(function(product, created) {
+    .then(function(products) {
       res.render('app_view', {
           title: 'Configuration',
           apiKey: app.nconf.get('oauth:api_key'),
