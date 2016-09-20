@@ -58,7 +58,8 @@ block content
             if (type=='preorder')
               a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
             else
-              a(class="btn btn-primary", data-id="#{product.id}", href="/send-pickup-mail/#{product.id}")='Trimite mail de ridicare'
+              a(class="btn btn-primary", data-id="#{product.id}", data-template='Test Template' href="/send-pickup-mail/#{product.id}")='Trimite mail de ridicare'
+              br
               br
               a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
 
