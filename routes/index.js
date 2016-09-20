@@ -99,8 +99,7 @@ exports.renderApp = function(req, res){
   };
   var async = false;
   var ip_pool = "Main Pool";
-  var send_at = "ccristian.moldovan@yahoo.com";
-  mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async, "ip_pool": ip_pool, "send_at": send_at}, function(result) {
+  mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async}, function(result) {
       console.log(result);
       /*
       [{
