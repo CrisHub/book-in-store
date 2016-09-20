@@ -13,7 +13,8 @@ var app = require('../app'),
     shopifyAPI  = require('shopify-node-api'),
     fs = require('fs'),
     _ = require('lodash');
-
+var mandrill = require('mandrill-api/mandrill');
+var mandrill_client = new mandrill.Mandrill('JCVkS2N7lJmYOcDUrUkdOA');
 
 var Shopify;
 
@@ -70,6 +71,50 @@ exports.index = function(req, res){
  * render the main app view
  */
 exports.renderApp = function(req, res){
+  var template_name = "Test Template";
+  var template_content = [{
+          "name": "example name",
+          "content": "example content"
+      }];
+  var message = {
+      "html": "<p>Example HTML content</p>",
+      "text": "Example text content",
+      "subject": "Rezervare produs",
+      "from_email": "contact@caramel.ro",
+      "from_name": "Caramel.ro",
+      "to": [{
+              "email": "ccristian.moldovan@yahoo.com",
+              "name": "Cristian Moldovan",
+              "type": "to"
+          }],
+      "merge": true,
+      "merge_language": "mailchimp",
+      "merge_vars": [{
+              "rcpt": "recipient.email@example.com",
+              "vars": [{
+                      "name": "merge2",
+                      "content": "merge2 content"
+                  }]
+          }],
+  };
+  var async = false;
+  var ip_pool = "Main Pool";
+  var send_at = "ccristian.moldovan@yahoo.com";
+  mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async, "ip_pool": ip_pool, "send_at": send_at}, function(result) {
+      console.log(result);
+      /*
+      [{
+              "email": "recipient.email@example.com",
+              "status": "sent",
+              "reject_reason": "hard-bounce",
+              "_id": "abc123abc123abc123abc123abc123"
+          }]
+      */
+  }, function(e) {
+      // Mandrill returns the error as an object with name and message keys
+      console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+      // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+  });
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
@@ -161,6 +206,8 @@ exports.renderApp = function(req, res){
     // getProducts(1);
 };
 
+
+
 exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
@@ -168,6 +215,7 @@ exports.bookProduct = function(req, res) {
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
       var product = product.get({plain: true});
+      
       res.json({product:product,created:created});
     });
 };
