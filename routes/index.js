@@ -71,42 +71,6 @@ exports.index = function(req, res){
  * render the main app view
  */
 exports.renderApp = function(req, res){
-  var template_name = "Test Template";
-  var message = {
-      "subject": "Rezervare produs",
-      "from_email": "contact@caramel.ro",
-      "from_name": "Caramel Fashion",
-      "to": [{
-              "email": "ccristian.moldovan@yahoo.com",
-              "name": "Cristian Moldovan",
-              "type": "to"
-          }],
-      "merge": true,
-      "merge_language": "mailchimp",
-      "merge_vars": [{
-              "rcpt": "ccristian.moldovan@yahoo.com",
-              "vars": [{
-                      "name": "thisistest",
-                      'content':'yaaay!'
-                  }]
-          }],
-  };
-  var async = false;
-  mandrill_client.messages.sendTemplate({"template_name": template_name, "message": message, "async": async}, function(result) {
-      console.log(result);
-      /*
-      [{
-              "email": "recipient.email@example.com",
-              "status": "sent",
-              "reject_reason": "hard-bounce",
-              "_id": "abc123abc123abc123abc123abc123"
-          }]
-      */
-  }, function(e) {
-      // Mandrill returns the error as an object with name and message keys
-      console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-      // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-  });
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
@@ -207,8 +171,59 @@ exports.bookProduct = function(req, res) {
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
       var product = product.get({plain: true});
+      var template_name = "Test Template";
+      var template_content = [{
+              "name": "Rezervare produs",
+              "content": "Rezervare produs"
+          }];
+      var message = {
+          "subject": "Rezervare produs",
+          "from_email": "contact@caramel.ro",
+          "from_name": "Caramel Fashion",
+          "to": [{
+                  "email": "ccristian.moldovan@yahoo.com",
+                  "name": "Cristian Moldovan",
+                  "type": "to"
+              }],
+          "merge": true,
+          "merge_language": "mailchimp",
+          "merge_vars": [{
+                  "rcpt": "ccristian.moldovan@yahoo.com",
+                  "vars": [{
+                          "name": "thisistest",
+                          'content':'yaaay!'
+                      }]
+              }],
+      };
+      var async = false;
+      mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async}, function(result) {
+          console.log(result);
+          res.json({product:product,created:created, email:'success'});
+
+          /*
+          [{
+                  "email": "recipient.email@example.com",
+                  "status": "sent",
+                  "reject_reason": "hard-bounce",
+                  "_id": "abc123abc123abc123abc123abc123"
+              }]
+          */
+      }, function(e) {
+          // Mandrill returns the error as an object with name and message keys
+          console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+          res.json({product:product,created:created, email:'error'});
+          // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+      });
+    });
+};
+
+exports.preorderProduct = function(req, res) {
+  setShopify(req, res);
+  var parsedUrl = url.parse(req.originalUrl, true);
+  db.Product
+    .findOrCreate({where: req.body})
+    .spread(function(product, created) {
       
-      res.json({product:product,created:created});
     });
 };
 
