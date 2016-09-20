@@ -15,7 +15,7 @@ block content
     //-   });
     //- });
   a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele preordered'
-  a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-primary", href="/render_app")='Vezi produsele rezervate'
+  a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
 
   table.table.table-sm.table-bordered
     thead.thead-inverse
@@ -62,9 +62,9 @@ block content
           td=product.comments
           td
             if (type=='preorder')
-              a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
+              a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
             else
-              a(class="btn btn-primary", data-id="#{product.id}", data-template='Test Template' href="/send-pickup-mail/#{product.id}")='Trimite mail de ridicare'
+              a(class="btn btn-info", data-id="#{product.id}", data-template='Test Template' href="/send-pickup-mail/#{product.id}")='Trimite mail de ridicare'
               br
               br
               a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
