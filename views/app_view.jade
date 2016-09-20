@@ -55,8 +55,7 @@ block content
           td=product.store
           td=product.comments
           td
-            div=type
-            if (type='preorder')
+            if (type=='preorder')
               a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
             else
               a(class="btn btn-primary", data-id="#{product.id}", href="/send-pickup-mail/#{product.id}")='Trimite mail de ridicare'
