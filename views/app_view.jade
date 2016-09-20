@@ -25,7 +25,10 @@ block content
         th='Variant'
         th='QTY'
         th='Client'
-        th='Magazin'
+        if (type=='preorder')
+          th='Adresa livrare'
+        else
+          th='Magazin'
         th='Mentiuni'
         th='Marcheaza'
     -var index = 1
@@ -52,7 +55,10 @@ block content
             div
               strong='Telefon: '
               span=product.customerPhone
-          td=product.store
+          if (type=='preorder')
+            td=product.address
+          else
+            td=product.store
           td=product.comments
           td
             if (type=='preorder')
