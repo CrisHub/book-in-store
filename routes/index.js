@@ -65,6 +65,8 @@ exports.index = function(req, res){
 
 
 
+
+
 /*
  * Get /render_app
  *
@@ -223,7 +225,7 @@ exports.preorderProduct = function(req, res) {
   db.Product
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
-      
+
     });
 };
 
