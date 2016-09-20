@@ -87,6 +87,7 @@ exports.renderApp = function(req, res){
           apiKey: app.nconf.get('oauth:api_key'),
           shopUrl: req.session.shopUrl,
           body: 'Database configured',
+          type:'book-in-store',
           products:products
       });
   });
@@ -183,14 +184,14 @@ exports.bookProduct = function(req, res) {
           "from_email": "contact@caramel.ro",
           "from_name": "Caramel Fashion",
           "to": [{
-                  "email": "ccristian.moldovan@yahoo.com",
-                  "name": "Cristian Moldovan",
+                  "email": product.customerEmail,
+                  "name": product.customerFirstName+' '+product.customerLastName,
                   "type": "to"
               }],
           "merge": true,
           "merge_language": "mailchimp",
           "merge_vars": [{
-                  "rcpt": "ccristian.moldovan@yahoo.com",
+                  "rcpt": product.customerEmail,
                   "vars": [{
                           "name": "thisistest",
                           'content':'yaaay!'
@@ -223,9 +224,21 @@ exports.preorderProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
   db.Product
-    .findOrCreate({where: req.body})
-    .spread(function(product, created) {
-
+    .findAll({
+      where: {type:'preorder'},
+      raw:true,
+      offset: 0,
+      limit: 250
+    })
+    .then(function(product, created) {
+      res.render('app_view', {
+          title: 'Configuration',
+          apiKey: app.nconf.get('oauth:api_key'),
+          shopUrl: req.session.shopUrl,
+          body: 'Database configured',
+          type:'preorder',
+          products:products
+      });
     });
 };
 
