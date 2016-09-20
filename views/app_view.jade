@@ -55,6 +55,7 @@ block content
           td=product.store
           td=product.comments
           td
+            div=type
             if (type='preorder')
               a(class="btn btn-primary", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
             else
