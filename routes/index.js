@@ -221,7 +221,7 @@ exports.bookProduct = function(req, res) {
                                 "name": "username",
                                 'content':product.customerLastName
                               }, {
-                                'name': 'storeName'
+                                'name': 'storeName',
                                 'content':product.store
                               }, {
                                 'name': 'pTitle',
@@ -298,7 +298,7 @@ exports.bookConfirmation = function(req, res) {
                                 "name": "username",
                                 'content':product.customerLastName
                               }, {
-                                'name': 'storeName'
+                                'name': 'storeName',
                                 'content':product.store
                               }, {
                                 'name': 'pTitle',
