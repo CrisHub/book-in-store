@@ -271,10 +271,11 @@ exports.bookConfirmation = function(req, res) {
   db.Product
     .findOne({where: {id:req.params.productId}})
     .then(function(product) {
-      var product = product.get({plain: true});
       product.set('status', 'email-sent').save().then(function(product) {
         console.log(product);
       });
+      var product = product.get({plain: true});
+      
       var subject = "Rezervare produs: Succes!",
       template_name = "Comanda ta te asteapta in magazinul Caramel!",
       template_content = [{
