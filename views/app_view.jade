@@ -18,9 +18,9 @@ block content
   a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
   br
   if (type=='preorder')
-    h3='Lista de produse Precomandate'
+    h5='Lista de produse Precomandate'
   else
-    h3='Lista de produse Rezervate'
+    h5='Lista de produse Rezervate'
   br
   table.table.table-sm.table-bordered
     thead.thead-inverse
@@ -69,7 +69,7 @@ block content
             if (type=='preorder')
               a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
             else
-              a(class="btn btn-info", data-id="#{product.id}", data-template='Test Template' href="/send-pickup-mail/#{product.id}")='Trimite mail de ridicare'
+              a(class="btn btn-info", data-id="#{product.id}", data-template='Test Template' href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
               br
               br
               a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'

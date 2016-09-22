@@ -12,6 +12,7 @@ var app = require('../app'),
     request     = require('request'),
     shopifyAPI  = require('shopify-node-api'),
     fs = require('fs'),
+    moment = require('moment'),
     _ = require('lodash');
 var mandrill = require('mandrill-api/mandrill');
 var mandrill_client = new mandrill.Mandrill('JCVkS2N7lJmYOcDUrUkdOA');
@@ -167,6 +168,7 @@ exports.renderApp = function(req, res){
 
 
 
+
 exports.bookProduct = function(req, res) {
     setShopify(req, res);
     var parsedUrl = url.parse(req.originalUrl, true);
@@ -174,32 +176,77 @@ exports.bookProduct = function(req, res) {
     .findOrCreate({where: req.body})
     .spread(function(product, created) {
       var product = product.get({plain: true});
-      var template_name = "Test Template";
-      var template_content = [{
-              "name": "Rezervare produs",
-              "content": "Rezervare produs"
-          }];
+      if (created) {
+        res.json({product:product,created:created, email:'success'});
+        return;
+      }
+      if (req.body.type == 'book-in-store') {
+          var subject = "Rezervare produs",
+              template_name = "Comanda ta este in curs de rezervare!",
+              template_content = [{
+                "name": "Rezervare produs",
+                "content": "Rezervare produs"
+              }];
+      }
+      if (req.body.type == 'preorder') {
+          var subject = "Precomanda produs",
+              template_name = "Precomanda ta a fost inregistrata cu succes!",
+              template_content = [{
+                "name": "Precomanda produs",
+                "content": "Precomanda produs"
+              }];
+      }
+      if (req.body.type == 'book-confirmation') {
+          var subject = "Rezervare produs: Succes!",
+              template_name = "Comanda ta te asteapta in magazinul Caramel!",
+              template_content = [{
+                "name": "Rezervare produs",
+                "content": "Rezervare produs"
+              }];
+      }
       var message = {
-          "subject": "Rezervare produs",
-          "from_email": "contact@caramel.ro",
-          "from_name": "Caramel Fashion",
-          "to": [{
-                  "email": product.customerEmail,
-                  "name": product.customerFirstName+' '+product.customerLastName,
-                  "type": "to"
-              }],
-          "merge": true,
-          "merge_language": "mailchimp",
-          "merge_vars": [{
-                  "rcpt": product.customerEmail,
-                  "vars": [{
-                          "name": "thisistest",
-                          'content':'yaaay!'
-                      }]
-              }],
-      };
+              "subject": subject,
+              "from_email": "contact@caramel.ro",
+              "from_name": "Caramel Fashion",
+              "to": [{
+                      "email": product.customerEmail,
+                      "name": product.customerFirstName+' '+product.customerLastName,
+                      "type": "to"
+                  }],
+              "merge": true,
+              "merge_language": "mailchimp",
+              "merge_vars": [{
+                      "rcpt": product.customerEmail,
+                      "vars": [{
+                                "name": "username",
+                                'content':product.customerLastName
+                              }, {
+                                'name': 'storeName'
+                                'content':product.store
+                              }, {
+                                'name': 'pTitle',
+                                'content':product.name
+                              }, {
+                                'name':'pQty',
+                                'content':product.quantity
+                              }, {
+                                'name':'pVariant',
+                                'content':product.variant.split('-')[0]
+                              }, {
+                                'name':'pPrice',
+                                'content':product.variant.split('-')[1]
+                              }, {
+                                'name':'pLink',
+                                'content':product.link
+                              }]
+                  }],
+          };
+
+      
       var async = false;
-      mandrill_client.messages.sendTemplate({"template_name": template_name, "template_content": template_content, "message": message, "async": async}, function(result) {
+      var sendObject = {"template_name": template_name, "template_content": template_content, "message": message, "async": async};
+
+      mandrill_client.messages.sendTemplate(sendObject, function(result) {
           console.log(result);
           res.json({product:product,created:created, email:'success'});
 
@@ -219,6 +266,88 @@ exports.bookProduct = function(req, res) {
       });
     });
 };
+
+exports.bookConfirmation = function(req, res) {
+  db.Product
+    .findOne({where: {id:req.params.productId}})
+    .then(function(product) {
+      var product = product.get({plain: true});
+      product.set('status', 'email-sent').save().then(function(product) {
+        console.log(product);
+      });
+      var subject = "Rezervare produs: Succes!",
+      template_name = "Comanda ta te asteapta in magazinul Caramel!",
+      template_content = [{
+        "name": "Rezervare produs",
+        "content": "Rezervare produs"
+      }];
+      var message = {
+              "subject": subject,
+              "from_email": "contact@caramel.ro",
+              "from_name": "Caramel Fashion",
+              "to": [{
+                      "email": product.customerEmail,
+                      "name": product.customerFirstName+' '+product.customerLastName,
+                      "type": "to"
+                  }],
+              "merge": true,
+              "merge_language": "mailchimp",
+              "merge_vars": [{
+                      "rcpt": product.customerEmail,
+                      "vars": [{
+                                "name": "username",
+                                'content':product.customerLastName
+                              }, {
+                                'name': 'storeName'
+                                'content':product.store
+                              }, {
+                                'name': 'pTitle',
+                                'content':product.name
+                              }, {
+                                'name':'pQty',
+                                'content':product.quantity
+                              }, {
+                                'name':'pVariant',
+                                'content':product.variant.split('-')[0]
+                              }, {
+                                'name':'pPrice',
+                                'content':product.variant.split('-')[1]
+                              }, {
+                                'name':'pLink',
+                                'content':product.link
+                              }, {
+                                'name':'crtDate',
+                                'content': moment().format("DD.MM.YYYY")
+                              }]
+                  }],
+          };
+
+      
+      var async = false;
+      var sendObject = {"template_name": template_name, "template_content": template_content, "message": message, "async": async};
+
+      mandrill_client.messages.sendTemplate(sendObject, function(result) {
+          console.log(result);
+          res.redirect("/render_app");
+
+          /*
+          [{
+                  "email": "recipient.email@example.com",
+                  "status": "sent",
+                  "reject_reason": "hard-bounce",
+                  "_id": "abc123abc123abc123abc123abc123"
+              }]
+          */
+      }, function(e) {
+          // Mandrill returns the error as an object with name and message keys
+          console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+          res.json({product:product,created:created, email:'error'});
+          // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+      });
+
+    });
+};
+
 
 exports.preorderProduct = function(req, res) {
   setShopify(req, res);
