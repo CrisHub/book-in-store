@@ -329,6 +329,7 @@ exports.bookConfirmation = function(req, res) {
 
       mandrill_client.messages.sendTemplate(sendObject, function(result) {
           console.log(result);
+          console.log('Emial sent');
           res.redirect("/render_app");
 
           /*
