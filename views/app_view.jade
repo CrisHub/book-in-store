@@ -69,7 +69,10 @@ block content
             if (type=='preorder')
               a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
             else
-              a(class="btn btn-info", data-id="#{product.id}", data-template='Test Template' href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
+              if (product.status != 'email-sent')
+                a(class="btn btn-info", data-id="#{product.id}", href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
+              else
+                a(class="btn btn-secodary btn-disabled", disabled, data-id="#{product.id}")='Email trimis'
               br
               br
               a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
