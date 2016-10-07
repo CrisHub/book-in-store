@@ -15,10 +15,10 @@ block content
     //-   });
     //- });
   if (type=='preorder')
-    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-secondary btn", href="/preorderd_products")='Vezi produsele preordered'
+    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-secondary btn", href="/preorderd_products")='Vezi produsele precomandate'
     a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-primary", href="/render_app")='Vezi produsele rezervate'
   else
-    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele preordered'
+    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele precomandate'
     a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
   br
   if (type=='preorder')
@@ -41,43 +41,50 @@ block content
         th='Mentiuni'
         th='Marcheaza'
     -var index = 1
-    each product in products
-      tbody
-        tr
-          td=index++
-          td
-            a(href="#{product.link}")
-              span=product.name
-              img(src="#{product.image}", style="max-width:75px")
-          td=product.variant
-          td=product.quantity
-          td
-            div
-              strong='Nume: '
-              span=product.customerFirstName
-            div
-              strong='Prenume: '
-              span=product.customerLastName
-            div
-              strong='Email: '
-              span=product.customerEmail
-            div
-              strong='Telefon: '
-              span=product.customerPhone
-          if (type=='preorder')
-            td=product.address
-          else
-            td=product.store
-          td=product.comments
-          td
+    if (products.length > 0)      
+      each product in products
+        tbody
+          tr
+            td=index++
+            td
+              a(href="#{product.link}")
+                span=product.name
+                img(src="#{product.image}", style="max-width:75px")
+            td=product.variant
+            td=product.quantity
+            td
+              div
+                strong='Nume: '
+                span=product.customerFirstName
+              div
+                strong='Prenume: '
+                span=product.customerLastName
+              div
+                strong='Email: '
+                span=product.customerEmail
+              div
+                strong='Telefon: '
+                span=product.customerPhone
             if (type=='preorder')
-              a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
+              td=product.address
             else
-              if (product.status != 'email-sent')
-                a(class="btn btn-info", data-id="#{product.id}", href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
+              td=product.store
+            td=product.comments
+            td
+              if (type=='preorder')
+                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
               else
-                a(class="btn btn-secondary", data-id="#{product.id}")='Email trimis'
-              br
-              br
-              a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
-
+                if (product.status != 'email-sent')
+                  a(class="btn btn-info", data-id="#{product.id}", href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
+                else
+                  a(class="btn btn-secondary", data-id="#{product.id}")='Email trimis'
+                br
+                br
+                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
+    else
+      tbody
+          tr
+            if (type=='preorder')
+              td(colspan="8")='Nu sunt produse precomandate'
+            else
+              td(colspan="8")='Nu sunt produse rezervate'
