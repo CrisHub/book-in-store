@@ -15,16 +15,15 @@ block content
     //-   });
     //- });
   if (type=='preorder')
-    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-secondary btn", href="/preorderd_products")='Vezi produsele precomandate'
-    a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-primary", href="/render_app")='Vezi produsele rezervate'
+    a(style="margin-bottom:10px;margin-right:15px;margin-top:20px;" class="btn-secondary btn", href="/preorderd_products")='Vezi produsele precomandate'
+    a(style="margin-bottom:10px;margin-top:20px;" class="btn btn-primary", href="/render_app")='Vezi produsele rezervate'
   else
-    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele precomandate'
-    a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
-  br
+    a(style="margin-bottom:10px;margin-right:15px;margin-top:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele precomandate'
+    a(style="margin-bottom:10px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
   if (type=='preorder')
-    h5='Lista de produse Precomandate'
+    h5(style="padding:10px 0px;border-top:1px solid #333;")='Lista de produse Precomandate'
   else
-    h5='Lista de produse Rezervate'
+    h5(style="padding:10px 0px;border-top:1px solid #333;")='Lista de produse Rezervate'
   br
   table.table.table-sm.table-bordered
     thead.thead-inverse
