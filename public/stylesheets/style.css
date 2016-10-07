@@ -5,3 +5,7 @@ body {
 table.table-sm td{
   vertical-align: middle;
 }
+
+#wrapper{
+  padding: 15px;
+}

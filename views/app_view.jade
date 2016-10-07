@@ -14,8 +14,12 @@ block content
     //-     $.ajax('')
     //-   });
     //- });
-  a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele preordered'
-  a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
+  if (type=='preorder')
+    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-primary btn", href="/preorderd_products")='Vezi produsele preordered'
+    a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-secondary", href="/render_app")='Vezi produsele rezervate'
+  else
+    a(style="margin-bottom:20px;margin-right:100px;margin-top:20px;margin-left:20px;" class="btn-secondary btn", href="/preorderd_products")='Vezi produsele preordered'
+    a(style="margin-bottom:20px;margin-top:20px;" class="btn btn-primary", href="/render_app")='Vezi produsele rezervate'
   br
   if (type=='preorder')
     h5='Lista de produse Precomandate'
