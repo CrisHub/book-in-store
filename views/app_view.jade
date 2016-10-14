@@ -70,7 +70,7 @@ block content
             td=product.comments
             td
               if (type=='preorder')
-                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
+                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Ridicat'
               else
                 if (product.status != 'email-sent')
                   a(class="btn btn-info", data-id="#{product.id}", href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
@@ -78,7 +78,7 @@ block content
                   a(class="btn btn-secondary", data-id="#{product.id}")='Email trimis'
                 br
                 br
-                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.id}")='Ridicat'
+                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Ridicat'
     else
       tbody
           tr
