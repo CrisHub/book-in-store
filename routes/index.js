@@ -305,11 +305,22 @@ exports.deleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
 
-  db.Product
-  .destroy({where:{id:req.params.productId}, force:true})
-  .then(function(product) {
-    res.redirect("/render_app");
-  })
+  Shopify.put('/admin/variants/'+req.params.variantId+'.json',
+    {
+      "variant": {
+        "id": parseInt(req.params.variantId),
+        "inventory_quantity_adjustment": -1
+      }
+    },
+    function(err, data, headers) {
+        console.log("GET: ", data);
+        db.Product
+        .destroy({where:{variantId:req.params.variantId}, force:true})
+        .then(function(product) {
+          res.redirect("/render_app");
+        })
+    });
+  
 };
 
 exports.viewProduct = function(req, res) {
