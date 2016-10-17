@@ -330,8 +330,7 @@ exports.softDeleteProduct = function(req, res) {
   db.Product
         .findOne({where:{variantId:req.params.variantId}})
         .then(function(product) {
-          var utcEpochSeconds = dateObj.getTime() + (dateObj.getTimezoneOffset() * 60000);
-          console.log(utcEpochSeconds);
+          
           product.set({status:'picked', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).save().then(function() {
             res.redirect("/render_app");
 
