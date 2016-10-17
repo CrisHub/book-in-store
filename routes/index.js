@@ -330,7 +330,7 @@ exports.softDeleteProduct = function(req, res) {
   console.log('right path');
   // console.log(req.params.variantId);
   db.Product
-        .destroy({where:{variantId:req.params.variantId, paranoid:true},paranoid:true})
+        .destroy({where:{variantId:req.params.variantId},paranoid:true})
         .then(function(product) {
           res.redirect("/render_app");
         })
