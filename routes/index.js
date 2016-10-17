@@ -329,7 +329,7 @@ exports.softDeleteProduct = function(req, res) {
   var parsedUrl = url.parse(req.originalUrl, true);
   // console.log(req.params.variantId);
   db.Product
-        .destroy({where:{variantId:req.params.variantId}})
+        .destroy({where:{variantId:req.params.variantId},paranoid:true})
         .then(function(product) {
           res.redirect("/render_app");
         })
