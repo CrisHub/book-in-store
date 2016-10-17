@@ -334,6 +334,7 @@ exports.softDeleteProduct = function(req, res) {
         .then(function(product) {
           product.destroy({paranoid:true}).then(function() {
             res.redirect("/render_app");
+            
           });
         })
   // Shopify.put('/admin/variants/'+req.params.variantId+'.json',
