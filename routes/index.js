@@ -331,7 +331,7 @@ exports.softDeleteProduct = function(req, res) {
         .findOne({where:{variantId:req.params.variantId}})
         .then(function(product) {
           console.log(moment().format('YYYY-MM-DD kk:mm:ss'));
-          product.set({deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).save().then(function() {
+          product.set({status:'picked', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).save().then(function() {
             res.redirect("/render_app");
 
           });

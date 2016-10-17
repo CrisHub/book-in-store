@@ -17,5 +17,6 @@ module.exports = function(sequelize, DataTypes) {
     status: DataTypes.STRING,
     link: DataTypes.STRING,
     address: DataTypes.STRING
+    deletedAt: DataTypes.STRING
   });
 }
