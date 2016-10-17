@@ -327,12 +327,11 @@ exports.deleteProduct = function(req, res) {
 exports.softDeleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
-  console.log('right path');
-  // console.log(req.params.variantId);
   db.Product
         .findOne({where:{variantId:req.params.variantId}})
         .then(function(product) {
-          product.set({status:'deleted', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).then(function() {
+          console.log(product.status);
+          product.set({status:product.status+'deleted', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).then(function() {
             res.redirect("/render_app");
 
           });
