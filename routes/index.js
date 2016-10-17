@@ -327,22 +327,23 @@ exports.deleteProduct = function(req, res) {
 exports.softDeleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
-  console.log(req.params.variantId);
-  Shopify.put('/admin/variants/'+req.params.variantId+'.json',
-    {
-      "variant": {
-        "id": parseInt(req.params.variantId),
-        "inventory_quantity_adjustment": -1
-      }
-    },
-    function(err, data, headers) {
-        console.log("GET: ", data);
-        db.Product
+  // console.log(req.params.variantId);
+  db.Product
         .destroy({where:{variantId:req.params.variantId}})
         .then(function(product) {
           res.redirect("/render_app");
         })
-    });
+  // Shopify.put('/admin/variants/'+req.params.variantId+'.json',
+  //   {
+  //     "variant": {
+  //       "id": parseInt(req.params.variantId),
+  //       "inventory_quantity_adjustment": -1
+  //     }
+  //   },
+  //   function(err, data, headers) {
+  //       console.log("GET: ", data);
+        
+  //   });
   
 };
 
