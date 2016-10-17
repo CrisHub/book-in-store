@@ -71,6 +71,7 @@ app.get('/preorderd_products', routes.preorderProduct);
 app.get('/book-confirmation/:productId', routes.bookConfirmation);
 app.get('/view-product/:productId', routes.viewProduct);
 app.get('/delete-product/:variantId', routes.deleteProduct);
+app.get('/soft-delete-product/:variantId', routes.softDeleteProduct);
 app.post('/book-product', cors(corsOptions), routes.bookProduct);
 
 
