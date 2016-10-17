@@ -330,9 +330,11 @@ exports.softDeleteProduct = function(req, res) {
   console.log('right path');
   // console.log(req.params.variantId);
   db.Product
-        .destroy({where:{variantId:req.params.variantId},paranoid:true})
+        .findAOne({where:{variantId:req.params.variantId}})
         .then(function(product) {
-          res.redirect("/render_app");
+          product.destroy({paranoid:true}).then(function() {
+            res.redirect("/render_app");
+          });
         })
   // Shopify.put('/admin/variants/'+req.params.variantId+'.json',
   //   {
