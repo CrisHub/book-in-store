@@ -78,6 +78,7 @@ exports.renderApp = function(req, res){
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
       where:{'type':'book-in-store'},
+      paranoid: false,
       raw:true,
       offset: 0,
       limit: 250
