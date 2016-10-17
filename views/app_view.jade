@@ -72,7 +72,7 @@ block content
               if (type=='preorder')
                 a(class="btn btn-danger", data-id="#{product.id}", href="/soft-delete-product/#{product.variantId}")='Ridicat'
               else
-                if (product.status == '')
+                if (product.status == undefined)
                   a(class="btn btn-info", data-id="#{product.id}", href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
                 if (product.status == 'email-sent')
                   a(class="btn btn-secondary", data-id="#{product.id}")='Email trimis'
