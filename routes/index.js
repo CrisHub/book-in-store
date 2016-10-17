@@ -332,9 +332,9 @@ exports.softDeleteProduct = function(req, res) {
   db.Product
         .findOne({where:{variantId:req.params.variantId}})
         .then(function(product) {
-          product.destroy({paranoid:true}).then(function() {
+          product.set({status:'deleted', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).then(function() {
             res.redirect("/render_app");
-            
+
           });
         })
   // Shopify.put('/admin/variants/'+req.params.variantId+'.json',
