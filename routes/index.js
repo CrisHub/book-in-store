@@ -327,9 +327,10 @@ exports.deleteProduct = function(req, res) {
 exports.softDeleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
+  console.log('right path');
   // console.log(req.params.variantId);
   db.Product
-        .destroy({where:{variantId:req.params.variantId},paranoid:true})
+        .destroy({where:{variantId:req.params.variantId, paranoid:true},paranoid:true})
         .then(function(product) {
           res.redirect("/render_app");
         })
