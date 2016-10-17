@@ -70,19 +70,30 @@ block content
             td=product.comments
             td
               if (type=='preorder')
-                a(class="btn btn-danger", data-id="#{product.id}", href="/soft-delete-product/#{product.variantId}")='Ridicat'
+                a(class="btn btn-success", data-id="#{product.id}", href="/soft-delete-product/#{product.variantId}")='Ridicat'
+                br
+                br
+                if (product.status == 'picked')
+                  a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Sterge'
+
               else
                 if (product.status == undefined)
                   a(class="btn btn-info", data-id="#{product.id}", href="/book-confirmation/#{product.id}")='Trimite mail de ridicare'
+                  br
+                  br
                 if (product.status == 'email-sent')
                   a(class="btn btn-secondary", data-id="#{product.id}")='Email trimis'
-                
-                br
-                br
+                  br
+                  br
                 if (product.status != 'picked')
                   a(class="btn btn-success", data-id="#{product.id}", href="/soft-delete-product/#{product.variantId}")='Ridicat'
-                else
+                  br
+                  br
+                if (product.status == 'picked')
                   a(class="btn btn-warning", data-id="#{product.id}")='Acest produs a fost ridicat'
+                  br
+                  br
+                  a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Sterge'
     else
       tbody
           tr
