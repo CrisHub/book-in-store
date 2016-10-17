@@ -90,7 +90,7 @@ block content
                   br
                   br
                 if (product.status == 'picked')
-                  a(class="btn btn-warning", data-id="#{product.id}")='Acest produs a fost ridicat'
+                  a(class="btn btn-warning", data-id="#{product.id}", style="color:#fff;")='Acest produs a fost ridicat'
                   br
                   br
                   a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Sterge'
