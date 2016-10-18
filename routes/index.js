@@ -305,7 +305,6 @@ exports.preorderProduct = function(req, res) {
 exports.deleteProduct = function(req, res) {
   setShopify(req, res);
   var parsedUrl = url.parse(req.originalUrl, true);
-    console.log("GET: ", data);
     db.Product
     .destroy({where:{variantId:req.params.variantId}, force:true})
     .then(function(product) {
