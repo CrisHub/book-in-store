@@ -77,7 +77,7 @@ exports.renderApp = function(req, res){
     setShopify(req, res); 
     var parsedUrl = url.parse(req.originalUrl, true);
     db.Product.findAll({
-      where:{'type':'book-in-store'},
+      where:{'type':'book-in-store', deletedAt:null},
       paranoid: false,
       raw:true,
       offset: 0,
