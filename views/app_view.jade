@@ -73,8 +73,7 @@ block content
                 a(class="btn btn-success", data-id="#{product.id}", href="/soft-delete-product/#{product.variantId}")='Ridicat'
                 br
                 br
-                if (product.status == 'picked')
-                  a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Sterge'
+                a(class="btn btn-danger", data-id="#{product.id}", href="/delete-product/#{product.variantId}")='Neridicat/Sterge'
 
               else
                 if (product.status == undefined)
