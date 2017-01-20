@@ -5,19 +5,19 @@
  * richard@codezuki.com
  */
 
-const util = require('util');
-var app = require('../app'),
-    url = require("url"),
-    querystring = require('querystring'),
-    request     = require('request'),
-    shopifyAPI  = require('shopify-node-api'),
-    fs = require('fs'),
-    moment = require('moment'),
-    _ = require('lodash');
-var mandrill = require('mandrill-api/mandrill');
-var mandrill_client = new mandrill.Mandrill('JCVkS2N7lJmYOcDUrUkdOA');
+// const util = require('util');
+// var app = require('../app'),
+//     url = require("url"),
+//     querystring = require('querystring'),
+//     request     = require('request'),
+//     shopifyAPI  = require('shopify-node-api'),
+//     fs = require('fs'),
+//     moment = require('moment'),
+//     _ = require('lodash');
+// var mandrill = require('mandrill-api/mandrill');
+// var mandrill_client = new mandrill.Mandrill('JCVkS2N7lJmYOcDUrUkdOA');
 
-var Shopify;
+// var Shopify;
 
 var setShopify = function(req, res) {
     var parsedUrl = url.parse(req.originalUrl, true);
@@ -302,39 +302,39 @@ exports.preorderProduct = function(req, res) {
     });
 };
 
-exports.deleteProduct = function(req, res) {
-  setShopify(req, res);
-  var parsedUrl = url.parse(req.originalUrl, true);
-    db.Product
-    .destroy({where:{variantId:req.params.variantId}, force:true})
-    .then(function(product) {
-      res.redirect("/render_app");
-    });
-};
+// exports.deleteProduct = function(req, res) {
+//   setShopify(req, res);
+//   var parsedUrl = url.parse(req.originalUrl, true);
+//     db.Product
+//     .destroy({where:{variantId:req.params.variantId}, force:true})
+//     .then(function(product) {
+//       res.redirect("/render_app");
+//     });
+// };
 
-exports.softDeleteProduct = function(req, res) {
-  setShopify(req, res);
-  var parsedUrl = url.parse(req.originalUrl, true);
-  db.Product
-        .findOne({where:{variantId:req.params.variantId}})
-        .then(function(product) {
-          product.set({status:'picked', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).save().then(function() {
-            Shopify.put('/admin/variants/'+req.params.variantId+'.json',
-            {
-              "variant": {
-                "id": parseInt(req.params.variantId),
-                "inventory_quantity_adjustment": -1
-              }
-            },
-            function(err, data, headers) {
-                console.log("GET: ", data);
-                res.redirect("/render_app");
-            });
-          });
-        })
+// exports.softDeleteProduct = function(req, res) {
+//   setShopify(req, res);
+//   var parsedUrl = url.parse(req.originalUrl, true);
+//   db.Product
+//         .findOne({where:{variantId:req.params.variantId}})
+//         .then(function(product) {
+//           product.set({status:'picked', deletedAt:moment().format('YYYY-MM-DD kk:mm:ss')}).save().then(function() {
+//             Shopify.put('/admin/variants/'+req.params.variantId+'.json',
+//             {
+//               "variant": {
+//                 "id": parseInt(req.params.variantId),
+//                 "inventory_quantity_adjustment": -1
+//               }
+//             },
+//             function(err, data, headers) {
+//                 console.log("GET: ", data);
+//                 res.redirect("/render_app");
+//             });
+//           });
+//         })
 
   
-};
+// };
 
 exports.viewProduct = function(req, res) {
     setShopify(req, res);
